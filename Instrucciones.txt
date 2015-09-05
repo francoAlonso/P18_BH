@@ -1,0 +1,39 @@
+Para poder ejecutar el servicio REST es necesario:
+1- Tener xampp instalado (poder usar PHP y MySQL). Poner la carpeta api dentro de la carpeta htdocs del xampp (por defecto: C:\xampp\htdocs)
+2- Tener la base de datos.
+4- Configurar correctamente la conexión a la base de datos (archivo DatabaseConfig.php).
+5- Hacer un request (empezar con ej.: localhost/api/index.php/usuario/1). NOTA: Hay que entrar por PHPMyAdmin a la base y crear un registro.
+
+Si devuelve el usuario creado, quiere decir que está funcionando correctamente. Si da un error de la conexión a la base de datos, probar dejando la linea 12 del index.php de la siguiente manera:
+$db = new Database("mysql:host=" . $dbConfig->host . ";dbname=" . $dbConfig->dbname, $dbConfig->username, $dbConfig->password);
+
+NO es necesario instalar el Composer (según lo indicado en la página de Slim Framework). Adentro de la carpeta API hay una carpeta llamada Slim que ya tiene los archivos necesarios.
+
+Notas para desarrollo:
+En los archivos de modelo de objeto (dentro de la carpeta Models), las propiedades/variables deben llamarse igual que como se llaman en la tabla de la base de datos.
+También vamos a poner el código con las instrucciones SQL dentro de ese archivo.
+
+En los archivos de la carpeta "Controllers" (que deben terminar su nombre con "Controller") es donde va a ir la lógica. NO debe haber instrucciones SQL en éstos archivos.
+
+Las funciones dentro de index se van a declarar con el siguiente formato (en el caso de los métodos POST):
+$app->post('/modelo/instruccion', function() use ($app, $db) {
+	try 
+	{
+		leer datos del request (por ejemplo: $usuarioRecibido = json_decode($app->request->getBody());)
+		hacer llamada a un método de un Controller (va a ser el que va a manejar todo lo referente al método llamado. Puede llamar a otros controllers y métodos dentro del mismo en caso de ser necesario)
+		devolver el resultado (echo ...)
+	}
+	catch (Exception $ex)
+	{
+		echo $ex->getMessage();
+	}
+});
+
+Otra forma, para los métodos GET, es de este estilo (por ejemplo):
+$app->get('/usuario/:id', function ($id) use ($app, $db){
+	
+	$usuario = UsuarioController::ObtenerPorId($id, $db);
+	echo '{usuarios: ' . json_encode(array($usuario)) . '}';
+});
+
+Haciendo uso del $db [use ($db)] nos evitamos tener que repetir siempre el código de conexión a la base de datos.
