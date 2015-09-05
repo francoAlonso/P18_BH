@@ -4,9 +4,9 @@ class Usuario
 {
 	/*
 	 * Las propiedades privadas son para evitar mostrarlas por error (por ejemplo haciendo un 'echo').
-	 * De esta forma evitamos pasar la contraseña (más allá de que vaya a estar encriptada) a frontend.
-	 * Para poder acceder a éstos datos vamos a necesitar funciones especiales (para modificarlos o leerlos).
-	 * Es importante que las propiedades se llamen igual a como están en la base de datos.
+	 * De esta forma evitamos pasar la contraseï¿½a (mï¿½s allï¿½ de que vaya a estar encriptada) a frontend.
+	 * Para poder acceder a ï¿½stos datos vamos a necesitar funciones especiales (para modificarlos o leerlos).
+	 * Es importante que las propiedades se llamen igual a como estï¿½n en la base de datos.
 	 */
 	
 	public $ID;
@@ -66,7 +66,7 @@ class Usuario
 				');
 		$statement->execute($params);
 		$statement->setFetchMode(PDO::FETCH_CLASS, 'Usuario');
-		return $statement->fetchAll(); // fetch trae uno sólo (o debe iterarse). fetchAll trae todos los registros.
+		return $statement->fetchAll(); // fetch trae uno sï¿½lo (o debe iterarse). fetchAll trae todos los registros.
 	}
 	public static function ObtenerPorId($id, $pdo)
 	{
