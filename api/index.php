@@ -3,6 +3,8 @@ require 'Slim-2.6.2/Slim/Slim.php';
 require 'DatabaseConfig.php';
 require 'Database.php';
 require 'model/Usuario.php';
+require 'model/Respuesta.php';
+require 'model/Pregunta.php';
 require 'controller/UsuarioController.php';
 
 // Permite el acceso desde otros dominios (CORS) - INICIO
@@ -28,9 +30,20 @@ $app = new \Slim\Slim();
 $dbConfig = new DatabaseConfig();
 $pdo = new Database("mysql:host=" . $dbConfig->host . ";dbname=" . $dbConfig->dbname, $dbConfig->username/*, $dbConfig->password*/);
 
+//______________________________________
+$app->get('/pregunta/:id',function($id) use ($pdo){
+    $pregunta = Pregunta::ObtenerPorId($id,$pdo);
+    echo json_encode(array($pregunta->Texto))."<br>";
+    echo "hola";
+	$respuestas = Respuesta::ObtenerRespuestas($id,$echo);
+	echo json_encode(array($respuesta->Texto));
+
+});
+//______________________________________
+
 $app->get('/usuario/:id', function ($id) use ($pdo){
 	$usuario = UsuarioController::ObtenerPorId($id, $pdo);
-	echo '{usuarios: ' . json_encode(array($usuario)) . '}';
+	echo '{usuarios: ' . json_encode(array($usuario)) . '<br>';
 	echo $usuario->ID;
 });
 $app->get('/usuario', function () use ($pdo){

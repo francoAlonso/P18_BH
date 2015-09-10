@@ -37,5 +37,16 @@ class Respuesta
 		$statement->setFetchMode(PDO::FETCH_CLASS, 'Respuesta');
 		return $statement->fetch();
 	}
+	//____________________________
+	public static function ObtenerRespuestas($ID_Pregunta,$pdo){
+		$params = array(':Pregunta_ID'=>$ID_Pregunta);
+		$statement = $pdo->prepare('SELECT Texto FROM Respuesta
+			WHERE ID_Pregunta = :Pregunta_ID 
+			AND Habilitado = 1');
+		$statement->execute($params);
+		$statement->setFetchMode(PDO::FETCH_CLASS, 'Respuesta');
+		return $statement->fetchAll();
+	}
+	//____________________________
 }
 ?>
