@@ -30,25 +30,45 @@ $app = new \Slim\Slim();
 $dbConfig = new DatabaseConfig();
 $pdo = new Database("mysql:host=" . $dbConfig->host . ";dbname=" . $dbConfig->dbname, $dbConfig->username/*, $dbConfig->password*/);
 
-//______________________________________
-$app->get('/pregunta/:id',function($id) use ($pdo){
-    $pregunta = Pregunta::ObtenerPorId($id,$pdo);
-    echo json_encode(array($pregunta->Texto))."<br>";
-    echo "hola";
-	$respuestas = Respuesta::ObtenerRespuestas($id,$echo);
-	echo json_encode(array($respuesta->Texto));
 
+$app->get('/pregunta/:id',function($id) use ($app, $pdo){
+	try{
+	    $_pregunta = Pregunta::ObtenerPorId($id,$pdo);
+		$_respuestas = Respuesta::ObtenerRespuestas($id, $pdo);
+		if ($_pregunta == null || $_respuestas == null)
+			throw new Exception("ERROR, no se encontro la pregunta o las respuestas");
+		else
+			$response = json_encode(array("Pregunta" => $_pregunta, "Respuestas" => $_respuestas));
+		echo $response;
+	}
+	catch (Exception $ex)
+	{
+		$app->response->setStatus(500);
+		echo $ex->getMessage();
+	}
 });
-//______________________________________
 
-$app->get('/usuario/:id', function ($id) use ($pdo){
-	$usuario = UsuarioController::ObtenerPorId($id, $pdo);
-	echo '{usuarios: ' . json_encode(array($usuario)) . '<br>';
-	echo $usuario->ID;
+$app->get('/usuario/:id', function ($id) use ($app, $pdo){
+	try{
+		$usuario = UsuarioController::ObtenerPorId($id, $pdo);
+		echo '{usuarios: ' . json_encode(array($usuario)) . '}';
+	}
+	catch (Exception $ex)
+	{
+		$app->response->setStatus(500);
+		echo $ex->getMessage();
+	}
 });
-$app->get('/usuario', function () use ($pdo){
-	$listaUsuario = UsuarioController::ObtenerTodos($pdo);
-	echo json_encode($listaUsuario);
+$app->get('/usuario', function () use ($app, $pdo){
+	try{
+		$listaUsuario = UsuarioController::ObtenerTodos($pdo);
+		echo json_encode($listaUsuario);
+	}
+	catch (Exception $ex)
+	{
+		$app->response->setStatus(500);
+		echo $ex->getMessage();
+	}
 });
 $app->post('/usuario/agregar', function() use ($app, $pdo) {
 	try 
@@ -59,6 +79,7 @@ $app->post('/usuario/agregar', function() use ($app, $pdo) {
 	}
 	catch (Exception $ex)
 	{
+		$app->response->setStatus(500);
 		echo $ex->getMessage();
 	}
 });

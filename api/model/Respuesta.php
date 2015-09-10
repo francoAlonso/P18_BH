@@ -22,7 +22,7 @@ class Respuesta
 				');
 		$statement->execute($params);
 		$statement->setFetchMode(PDO::FETCH_CLASS, 'Respuesta');
-		return $statement->fetchAll(); // fetch trae uno sólo (o debe iterarse). fetchAll trae todos los registros.
+		return $statement->fetchAll(); // fetch trae uno sï¿½lo (o debe iterarse). fetchAll trae todos los registros.
 	}
 	public static function ObtenerPorId($id, $pdo)
 	{
@@ -40,7 +40,7 @@ class Respuesta
 	//____________________________
 	public static function ObtenerRespuestas($ID_Pregunta,$pdo){
 		$params = array(':Pregunta_ID'=>$ID_Pregunta);
-		$statement = $pdo->prepare('SELECT Texto FROM Respuesta
+		$statement = $pdo->prepare('SELECT * FROM Respuesta
 			WHERE ID_Pregunta = :Pregunta_ID 
 			AND Habilitado = 1');
 		$statement->execute($params);
