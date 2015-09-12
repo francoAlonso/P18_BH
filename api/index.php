@@ -30,7 +30,6 @@ $app = new \Slim\Slim();
 $dbConfig = new DatabaseConfig();
 $pdo = new Database("mysql:host=" . $dbConfig->host . ";dbname=" . $dbConfig->dbname, $dbConfig->username/*, $dbConfig->password*/);
 
-
 $app->get('/pregunta/:id',function($id) use ($app, $pdo){
 	try{
 	    $_pregunta = Pregunta::ObtenerPorId($id,$pdo);

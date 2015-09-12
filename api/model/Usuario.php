@@ -97,6 +97,21 @@ class Usuario
 		$pdo->commit();
 		return $usuario;
 	}
+
+	public static function Login($nombre,$contrasena,$pdo){
+		$params = array(':Nombre' => $nombre, ':Contrasena' => $contrasena);
+		$statement = $pdo->prepare('
+				SELECT *
+				FROM Usuario
+				WHERE Nombre = :Nombre
+				AND Contrasena = :Contrasena
+				AND Habilitado = 1
+				LIMIT 0,1');
+		$statement->execute($params);
+		$statement->setFetchMode(PDO::FETCH_CLASS, 'Usuario');
+		return $statement->fetch();
+	}
+
 }
 
 ?>
