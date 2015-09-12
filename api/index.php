@@ -5,9 +5,25 @@ require 'Database.php';
 require 'model/Usuario.php';
 require 'model/Respuesta.php';
 require 'model/Pregunta.php';
+require 'model/Partida.php';
+require 'model/Empresa.php';
+require 'model/Gerencia.php';
+require 'model/Nivel.php';
+require 'model/Partida_Pregunta.php';
+require 'model/Partida_Respuesta.php';
+require 'model/Partida_Usuario.php';
+require 'model/Sede.php';
+require 'controller/EmpresaController.php';
+require 'controller/GerenciaController.php';
+require 'controller/NivelController.php';
+require 'controller/Partida_PreguntaController.php';
+require 'controller/Partida_RespuestaController.php';
+require 'controller/Partida_UsuarioController.php';
+require 'controller/PartidaController.php';
 require 'controller/UsuarioController.php';
 require 'controller/PreguntaController.php';
 require 'controller/RespuestaController.php';
+require 'controller/SedeController.php';
 
 // Permite el acceso desde otros dominios (CORS) - INICIO
 if (isset($_SERVER['HTTP_ORIGIN'])) {
@@ -110,6 +126,8 @@ $app->post('/usuario/login', function() use ($app, $pdo) {
 		echo $ex->getMessage();
 	}
 });
+
+
 
 $app->run();
 ?>
