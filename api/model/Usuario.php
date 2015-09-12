@@ -98,13 +98,14 @@ class Usuario
 		return $usuario;
 	}
 
-	public static function Login($nombre,$contrasena,$pdo){
-		$params = array(':Nombre' => $nombre, ':Contrasena' => $contrasena);
+	public static function Login($nombre, $contrasena, $dni, $pdo){
+		$params = array(':Nombre' => $nombre, ':Contrasena' => $contrasena, ':DNI' => $dni);
 		$statement = $pdo->prepare('
 				SELECT *
 				FROM Usuario
 				WHERE Nombre = :Nombre
 				AND Contrasena = :Contrasena
+				AND DNI = :DNI
 				AND Habilitado = 1
 				LIMIT 0,1');
 		$statement->execute($params);

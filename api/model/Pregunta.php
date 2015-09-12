@@ -16,7 +16,7 @@ class Pregunta
 				');
 		$statement->execute($params);
 		$statement->setFetchMode(PDO::FETCH_CLASS, 'Pregunta');
-		return $statement->fetchAll(); // fetch trae uno sólo (o debe iterarse). fetchAll trae todos los registros.
+		return $statement->fetchAll(); // fetch trae uno sï¿½lo (o debe iterarse). fetchAll trae todos los registros.
 	}
 	public static function ObtenerPorId($id, $pdo)
 	{
@@ -28,6 +28,14 @@ class Pregunta
 				AND Habilitado = 1
 				LIMIT 0,1');
 		$statement->execute($params);
+		$statement->setFetchMode(PDO::FETCH_CLASS, 'Pregunta');
+		return $statement->fetch();
+	}
+	
+	public static function ObtenerPreguntaRandom($pdo)
+	{
+		$statement = $pdo->prepare('SELECT * FROM Pregunta ORDER BY RAND() LIMIT 0,1;');
+		$statement->execute();
 		$statement->setFetchMode(PDO::FETCH_CLASS, 'Pregunta');
 		return $statement->fetch();
 	}

@@ -6,6 +6,8 @@ require 'model/Usuario.php';
 require 'model/Respuesta.php';
 require 'model/Pregunta.php';
 require 'controller/UsuarioController.php';
+require 'controller/PreguntaController.php';
+require 'controller/RespuestaController.php';
 
 // Permite el acceso desde otros dominios (CORS) - INICIO
 if (isset($_SERVER['HTTP_ORIGIN'])) {
@@ -30,9 +32,20 @@ $app = new \Slim\Slim();
 $dbConfig = new DatabaseConfig();
 $pdo = new Database("mysql:host=" . $dbConfig->host . ";dbname=" . $dbConfig->dbname, $dbConfig->username/*, $dbConfig->password*/);
 
+
+$app->get('/pregunta/generar', function() use ($app, $pdo){
+	try{
+		$pregunta = PreguntaController::GenerarPregunta($pdo);
+		$respuestas = RespuestaController::ObtenerRespuestas($pregunta->ID, $pdo);
+		echo '{Pregunta: ' . json_encode(array($pregunta)) . ', Respuestas: ' . json_encode(array($respuestas)) . '}';
+	}catch (Exception $ex){
+		$app->response->setStatus(500);
+		echo $ex->getMessage();
+	}
+});
 $app->get('/pregunta/:id',function($id) use ($app, $pdo){
 	try{
-	    $_pregunta = Pregunta::ObtenerPorId($id,$pdo);
+		$_pregunta = Pregunta::ObtenerPorId($id,$pdo);
 		$_respuestas = Respuesta::ObtenerRespuestas($id, $pdo);
 		if ($_pregunta == null || $_respuestas == null)
 			throw new Exception("ERROR, no se encontro la pregunta o las respuestas");
@@ -46,7 +59,6 @@ $app->get('/pregunta/:id',function($id) use ($app, $pdo){
 		echo $ex->getMessage();
 	}
 });
-
 $app->get('/usuario/:id', function ($id) use ($app, $pdo){
 	try{
 		$usuario = UsuarioController::ObtenerPorId($id, $pdo);
@@ -78,6 +90,22 @@ $app->post('/usuario/agregar', function() use ($app, $pdo) {
 	}
 	catch (Exception $ex)
 	{
+		$app->response->setStatus(500);
+		echo $ex->getMessage();
+	}
+});
+$app->post('/usuario/login', function() use ($app, $pdo) {
+	try{
+		$respuesta = false;
+		$datosRecibidos = json_decode($app->request->getBody());
+		$usuario = UsuarioController::Logeo($datosRecibidos->Nombre, $datosRecibidos->Contrasena, $datosRecibidos->DNI, $pdo);
+		if ($usuario == null){
+			$respuesta = false;
+		}else{
+			$respuesta = true;
+		}
+		echo ('Validado:' . var_export($respuesta, true));
+	}catch (Exception $ex){
 		$app->response->setStatus(500);
 		echo $ex->getMessage();
 	}
