@@ -46,8 +46,14 @@ class Partida
 		$pdo->commit();
 		return $usuario;
 	}
-	public static function ObtenerPartidaDisponible($ID_Usuario, $pdo){
-		
+	public static function ObtenerPartidaDisponible($pdo){
+		$statement = $pdo->prepare('SELECT * FROM Partida 
+									WHERE Habilitado = 1 
+									ORDER BY RAND() LIMIT 0,1;');
+		$statement->execute();
+		$statement->setFetchMode(PDO::FETCH_CLASS, 'Partida');
+		return $statement->fetch();
 	}
+
 }
 ?>

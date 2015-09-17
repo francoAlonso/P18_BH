@@ -30,6 +30,15 @@ class Partida_Usuario
 		$statement->setFetchMode(PDO::FETCH_CLASS, 'Partida_Usuario');
 		return $statement->fetch();
 	}
+
+	public static function AgregarUsuarioAPartida($ID_Partida, $ID_Usuario, $pdo){
+		$pdo->beginTransaction();
+		$params = array(':ID_Partida' => $ID_Partida->ID, ':ID_Usuario'=> $ID_Usuario->ID, ':Fecha_Inicio'=> $ID_Partida->Fecha_Inicio, ':Fecha_Fin'=>null);
+		$statement = $pdo->prepare('INSERT INTO Partida_Usuario(ID_Partida, ID_Usuario, Fecha_Inicio, Fecha_Fin)
+									VALUES :ID_Partida, :ID_Usuario, :Fecha_Inicio, :Fecha_Fin');
+		$statement->execute($params);
+		$pdo->commit();
+	}
 	
 }
 ?>

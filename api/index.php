@@ -48,6 +48,14 @@ $app = new \Slim\Slim();
 $dbConfig = new DatabaseConfig();
 $pdo = new Database("mysql:host=" . $dbConfig->host . ";dbname=" . $dbConfig->dbname, $dbConfig->username/*, $dbConfig->password*/);
 
+$app->get('/partida/generar/:id', function($id) use ($app, $pdo){
+	try{
+		$partida = PartidaController::CrearPartida($pdo,$id);
+	}catch (Exception $ex){
+		$app->response->setStatus(500);
+		echo $ex->getMessage();
+	}
+});
 
 $app->get('/pregunta/generar', function() use ($app, $pdo){
 	try{
