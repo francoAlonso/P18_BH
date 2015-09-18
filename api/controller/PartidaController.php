@@ -3,12 +3,17 @@ Class PartidaController{
 	// Buscar partida disponible (habilitado, y que cantidad de registros Partida_Usuario para esa partida 
 	//sea menor que cantidad de usuarios de la partida
 	public static function CrearPartida($pdo, $ID_Usuario){
-		$partidaDisponible = Partida::ObtenerPartidaDisponible($pdo);
+		$partidaDisponible = Partida::ObtenerPartidaDisponible($pdo, $ID_Usuario);
 		if($partidaDisponible == null){
 			$crearPartida = Partida::CrearPartida($pdo);
+			// Después de crear la partida, agregamos al usuario a la partida.
+			$partidaUsuario = Partida_UsuarioController::AgregarUsuario($crearPartida->ID, $ID_Usuario, $pdo);
+			// Falta agregar las preguntas.
 			return $crearPartida; 
 		}else{
-			$agregarUsuario = Partida_UsuarioController::AgregarUsuario($partidaDisponible, $ID_Usuario, $pdo);
+			$agregarUsuario = Partida_UsuarioController::AgregarUsuario($partidaDisponible->ID, $ID_Usuario, $pdo);
+			$partidaDisponible = Partida::DeshabilitarPartida($pdo, $partidaDisponible->ID); // Al agregar segundo jugador deshabilitamos para que no se pueda agregar otro.
+			return $partidaDisponible;
 		}
 	}
 		// Si está disponible, agregar Partida_Usuario y devolver la lista de preguntas y respuestas.

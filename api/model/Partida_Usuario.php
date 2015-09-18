@@ -16,7 +16,7 @@ class Partida_Usuario
 				');
 		$statement->execute($params);
 		$statement->setFetchMode(PDO::FETCH_CLASS, 'Partida_Usuario');
-		return $statement->fetchAll(); // fetch trae uno sólo (o debe iterarse). fetchAll trae todos los registros.
+		return $statement->fetchAll(); // fetch trae uno sï¿½lo (o debe iterarse). fetchAll trae todos los registros.
 	}
 	public static function ObtenerPorId($id, $pdo)
 	{
@@ -33,11 +33,16 @@ class Partida_Usuario
 
 	public static function AgregarUsuarioAPartida($ID_Partida, $ID_Usuario, $pdo){
 		$pdo->beginTransaction();
-		$params = array(':ID_Partida' => $ID_Partida->ID, ':ID_Usuario'=> $ID_Usuario->ID, ':Fecha_Inicio'=> $ID_Partida->Fecha_Inicio, ':Fecha_Fin'=>null);
+		$now = new DateTime(); // Fecha de cuando el usuario inicia la partida, no la fecha de inicio de la partida
+		// Las variables $ID_Partida y $ID_Usuario no son los objetos de partida o de usuario. Son solamente los id (variables numÃ©ricas),
+		$params = array(':ID_Partida' => $ID_Partida, ':ID_Usuario'=> $ID_Usuario, ':Fecha_Inicio'=> $now->format('Y-m-d H:i:s'), ':Fecha_Fin'=>null);
 		$statement = $pdo->prepare('INSERT INTO Partida_Usuario(ID_Partida, ID_Usuario, Fecha_Inicio, Fecha_Fin)
-									VALUES :ID_Partida, :ID_Usuario, :Fecha_Inicio, :Fecha_Fin');
+									VALUES (:ID_Partida, :ID_Usuario, :Fecha_Inicio, :Fecha_Fin)');
 		$statement->execute($params);
+		$idPartidaUsuario = $pdo->lastInsertId();
+		$partidaUsuario = Partida_Usuario::ObtenerPorId($idPartidaUsuario, $pdo);
 		$pdo->commit();
+		return $partidaUsuario;
 	}
 	
 }

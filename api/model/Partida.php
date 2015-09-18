@@ -44,15 +44,28 @@ class Partida
 		$idPartida = $pdo->lastInsertId();
 		$partida = Partida::ObtenerPorId($idPartida, $pdo);
 		$pdo->commit();
-		return $usuario;
+		return $partida;
 	}
-	public static function ObtenerPartidaDisponible($pdo){
+	public static function ObtenerPartidaDisponible($pdo, $ID_Usuario){
+		// Agregado el parámetro $ID_Usuario para que no tome como partida válida una iniciada por el mismo usuario.
+		$params = array(':ID_Usuario' => $ID_Usuario);
 		$statement = $pdo->prepare('SELECT * FROM Partida 
-									WHERE Habilitado = 1 
+									WHERE Habilitado = 1
+									AND ID NOT IN (SELECT ID_Partida FROM Partida_Usuario WHERE ID_Usuario = :ID_Usuario)
 									ORDER BY RAND() LIMIT 0,1;');
-		$statement->execute();
+		$statement->execute($params);
 		$statement->setFetchMode(PDO::FETCH_CLASS, 'Partida');
 		return $statement->fetch();
+	}
+	public static function DeshabilitarPartida($pdo, $ID_Partida)
+	{
+		$params = array(':ID' => $ID_Partida);
+		$statement = $pdo->prepare('UPDATE Partida
+									SET Habilitado = 0
+									WHERE ID = :ID');
+		$statement->execute($params);
+		$partida = Partida::ObtenerPorId($ID_Partida, $pdo);
+		return $partida;
 	}
 
 }

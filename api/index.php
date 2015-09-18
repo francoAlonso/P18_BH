@@ -50,10 +50,14 @@ $pdo = new Database("mysql:host=" . $dbConfig->host . ";dbname=" . $dbConfig->db
 
 $app->get('/partida/generar/:id', function($id) use ($app, $pdo){
 	try{
+		$pdo->beginTransaction();
 		$partida = PartidaController::CrearPartida($pdo,$id);
+		$pdo->commit();
+		echo json_encode($partida);
 	}catch (Exception $ex){
 		$app->response->setStatus(500);
 		echo $ex->getMessage();
+		$pdo->rollBack();
 	}
 });
 
