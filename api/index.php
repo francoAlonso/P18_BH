@@ -70,6 +70,20 @@ $app->get('/pregunta/generar', function() use ($app, $pdo){
 		$app->response->setStatus(500);
 		echo $ex->getMessage();
 	}
+
+	$array_pregunta = array();
+		$i=0;
+		while($i<=9){
+			$preguntaObtenida = PreguntaController::GenerarPregunta($pdo);
+			for($n=0; $n<=sizeof($array_pregunta);$n++){
+				if($preguntaObtenida != $array_pregunta[$n]){
+					array_push($array_pregunta, json_encode(array($preguntaObtenida)));
+					$n = 10;
+					$i++;
+				}
+			}
+		}
+
 });
 $app->get('/pregunta/:id',function($id) use ($app, $pdo){
 	try{

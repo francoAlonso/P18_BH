@@ -3,7 +3,26 @@ Class PartidaController{
 	// Buscar partida disponible (habilitado, y que cantidad de registros Partida_Usuario para esa partida 
 	//sea menor que cantidad de usuarios de la partida
 	public static function CrearPartida($pdo, $ID_Usuario){
+
+		$array_pregunta = array();
+		$i=0;
+		while($i<=9){
+			$preguntaObtenida = PreguntaController::GenerarPregunta($pdo);
+			for($n=0; $n<=sizeof($array_pregunta);$n++){
+				if($preguntaObtenida != $array_pregunta[$n]){
+					array_push($array_pregunta, json_encode(array($preguntaObtenida)));
+					$n = 10;
+				}
+			}
+		}
+		for ($i=0; $i <= 10; $i++){
+			$preguntaObtenida = PreguntaController::GenerarPregunta($pdo);
+			array_push($array_pregunta, json_encode(array($preguntaObtenida)));
+			echo $array_pregunta[$i];
+		}
+
 		$partidaDisponible = Partida::ObtenerPartidaDisponible($pdo, $ID_Usuario);
+
 		if($partidaDisponible == null){
 			$crearPartida = Partida::CrearPartida($pdo);
 			// Después de crear la partida, agregamos al usuario a la partida.
