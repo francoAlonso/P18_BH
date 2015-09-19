@@ -41,6 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 }
 // Permite el acceso desde otros dominios (CORS) - FIN
 
+date_default_timezone_set('America/Argentina/Buenos_Aires');
+
 \Slim\Slim::registerAutoloader();
 
 $app = new \Slim\Slim();
@@ -57,10 +59,29 @@ $app->get('/partida/generar/:id', function($id) use ($app, $pdo){
 	}catch (Exception $ex){
 		$app->response->setStatus(500);
 		echo $ex->getMessage();
+		echo $ex->getTraceAsString();
 		$pdo->rollBack();
 	}
 });
-
+$app->post('/partida/responder', function () use ($app, $pdo){
+	try
+	{
+		$pdo->beginTransaction();
+		$recibido = json_decode($app->request->getBody());
+		$ID_Usuario = $recibido->ID_Usuario;
+		$ID_Partida = $recibido->ID_Partida;
+		$ID_Pregunta = $recibido->ID_Pregunta;
+		$ID_Respuesta = $recibido->ID_Respuesta;
+		$pdo->commit();
+	}
+	catch (Exception $ex)
+	{
+		$app->response->setStatus(500);
+		echo $ex->getMessage();
+		echo $ex->getTraceAsString();
+		$pdo->rollBack();
+	}
+});
 $app->get('/pregunta/generar', function() use ($app, $pdo){
 	try{
 		$pregunta = PreguntaController::GenerarPregunta($pdo);
@@ -70,20 +91,6 @@ $app->get('/pregunta/generar', function() use ($app, $pdo){
 		$app->response->setStatus(500);
 		echo $ex->getMessage();
 	}
-
-	$array_pregunta = array();
-		$i=0;
-		while($i<=9){
-			$preguntaObtenida = PreguntaController::GenerarPregunta($pdo);
-			for($n=0; $n<=sizeof($array_pregunta);$n++){
-				if($preguntaObtenida != $array_pregunta[$n]){
-					array_push($array_pregunta, json_encode(array($preguntaObtenida)));
-					$n = 10;
-					$i++;
-				}
-			}
-		}
-
 });
 $app->get('/pregunta/:id',function($id) use ($app, $pdo){
 	try{

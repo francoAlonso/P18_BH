@@ -31,13 +31,30 @@ class Pregunta
 		$statement->setFetchMode(PDO::FETCH_CLASS, 'Pregunta');
 		return $statement->fetch();
 	}
-	
 	public static function ObtenerPreguntaRandom($pdo)
 	{
 		$statement = $pdo->prepare('SELECT * FROM Pregunta ORDER BY RAND() LIMIT 0,1;');
 		$statement->execute();
 		$statement->setFetchMode(PDO::FETCH_CLASS, 'Pregunta');
 		return $statement->fetch();
+	}
+	public static function ObtenerPreguntasRandom($pdo, $cantidad)
+	{
+		$statement = $pdo->prepare('SELECT * FROM Pregunta ORDER BY RAND() LIMIT 0,' . intval($cantidad));
+		$statement->execute();
+		$statement->setFetchMode(PDO::FETCH_CLASS, 'Pregunta');
+		return $statement->fetchAll();
+	}
+	public static function ObtenerPreguntasPorPartida($pdo, $ID_Partida)
+	{
+		$params = array(':ID_Partida' => $ID_Partida);
+		$statement = $pdo->prepare('
+				SELECT * FROM Pregunta Pr
+				INNER JOIN Partida_Pregunta PP ON PP.ID_Pregunta = Pr.ID
+				WHERE PP.ID_Partida = ' . intval($ID_Partida));
+		$statement->execute();
+		$statement->setFetchMode(PDO::FETCH_CLASS, 'Pregunta');
+		return $statement->fetchAll();
 	}
 }
 ?>

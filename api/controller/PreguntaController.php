@@ -4,5 +4,11 @@ Class PreguntaController{
 		$pregunta = Pregunta::ObtenerPreguntaRandom($pdo);
 		return $pregunta;
 	}
+	
+	public static function ObtenerPreguntasRandom($pdo, $cantidad)
+	{
+		$preguntas = Pregunta::ObtenerPreguntasRandom($pdo, $cantidad);
+		return $preguntas;
+	}
 }
 ?>

@@ -14,7 +14,7 @@ class Partida_Pregunta
 				');
 		$statement->execute($params);
 		$statement->setFetchMode(PDO::FETCH_CLASS, 'Partida_Pregunta');
-		return $statement->fetchAll(); // fetch trae uno sólo (o debe iterarse). fetchAll trae todos los registros.
+		return $statement->fetchAll(); // fetch trae uno sï¿½lo (o debe iterarse). fetchAll trae todos los registros.
 	}
 	public static function ObtenerPorId($id, $pdo)
 	{
@@ -28,6 +28,31 @@ class Partida_Pregunta
 		$statement->setFetchMode(PDO::FETCH_CLASS, 'Partida_Pregunta');
 		return $statement->fetch();
 	}
+	public static function ObtenerPorPartida($pdo, $ID_Partida)
+	{
+		$params = array(':ID_Partida' => $ID_Partida);
+		$statement = $pdo->prepare('
+				SELECT *
+				FROM Partida_Pregunta
+				WHERE ID_Partida = :ID_Partida');
+		$statement->execute($params);
+		$statement->setFetchMode(PDO::FETCH_CLASS, 'Partida_Pregunta');
+		return $statement->fetch();
+	}
+	public static function AgregarPregunta($pdo, $ID_Partida, $ID_Pregunta)
+	{
+		$pdo->beginTransaction();
+		$params = array(':ID_Partida' => $ID_Partida, ':ID_Pregunta' => $ID_Pregunta);
+		$statement = $pdo->prepare('
+				INSERT INTO Partida_Pregunta (ID_Partida, ID_Pregunta)
+				VALUES (:ID_Partida, :ID_Pregunta)');
+		$statement->execute($params);
+		$idPartidaPregunta = $pdo->lastInsertId();
+		$partidaPregunta = Partida_Pregunta::ObtenerPorId($idPartidaPregunta, $pdo);
+		$pdo->commit();
+		return $partidaPregunta;
+	}
+	
 	
 }
 ?>
