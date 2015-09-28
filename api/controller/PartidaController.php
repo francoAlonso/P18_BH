@@ -20,7 +20,8 @@ Class PartidaController
 		else
 		{
 			$agregarUsuario = Partida_UsuarioController::AgregarUsuario($partidaDisponible->ID, $ID_Usuario, $pdo);
-			$partidaDisponible2 = Partida::DeshabilitarPartida($pdo, $partidaDisponible->ID); // Al agregar segundo jugador deshabilitamos para que no se pueda agregar otro.
+			$partidaDisponible2 = Partida::DeshabilitarPartida($pdo, $partidaDisponible->ID); 
+			// Al agregar segundo jugador deshabilitamos para que no se pueda agregar otro.
 		}
 		$preguntas = Partida_PreguntaController::ObtenerPreguntasPorPartida($pdo, $partidaDisponible->ID);
 		$preguntasReturn = array();

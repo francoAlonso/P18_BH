@@ -63,6 +63,22 @@ $app->get('/partida/generar/:id', function($id) use ($app, $pdo){
 		$pdo->rollBack();
 	}
 });
+
+$app->get('/pregunta/responder/:id', function ($id) use ($app, $pdo){
+	try{
+		$respuesta = Partida_RespuestaController::VerificarRespuesta($id, $pdo);
+		echo json_encode($respuesta);
+		$generarPartida_Respuesta = json_decode($app->request->getBody());
+		$Partida_Respuesta = Partida_RespuestaController::AgregarPartidaRespuesta($generarPartida_Respuesta->ID_Respuesta, 
+																				$generarPartida_Respuesta->ID_Partida_Pregunta,
+																				$generarPartida_Respuesta->ID_Partida_Usuario, $pdo);
+		echo json_encode($Partida_Respuesta);
+	}catch(Exception $ex){
+		$app->response->setStatus(500);
+		echo $ex->getMessage();
+	}
+});
+
 $app->post('/partida/responder', function () use ($app, $pdo){
 	try
 	{
@@ -119,6 +135,7 @@ $app->get('/usuario/:id', function ($id) use ($app, $pdo){
 		echo $ex->getMessage();
 	}
 });
+
 $app->get('/usuario', function () use ($app, $pdo){
 	try{
 		$listaUsuario = UsuarioController::ObtenerTodos($pdo);
