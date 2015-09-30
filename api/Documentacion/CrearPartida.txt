@@ -1,5 +1,5 @@
 Crear Partida:
-Request: método POST
+Request: método GET
 	Url: http://localhost:8082/api/index.php/partida/generar/:ID_Usuario:
 Respuesta (ejemplo):
 {
