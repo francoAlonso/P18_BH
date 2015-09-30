@@ -186,7 +186,7 @@ $app->post('/usuario/login', function() use ($app, $pdo) {
 		echo $ex->getMessage();
 	}
 });
-$app->get('gerencias/puntajes', function () use ($app, $pdo)
+$app->get('/gerencias/puntajes', function () use ($app, $pdo)
 {
 	try
 	{

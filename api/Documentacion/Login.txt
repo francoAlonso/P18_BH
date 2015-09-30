@@ -1,0 +1,10 @@
+Login
+Request: Método POST
+	url: http://localhost:8082/api/index.php/usuario/login
+	Payload (ejemplo): 	{
+							"Nombre": "Test1",
+							"Contrasena":"asd123",
+							"DNI":"99999999"
+						}
+Respuesta (ejemplo):
+{"Validado":true,"Usuario":{"ID":"2","ID_Gerencia":1,"ID_Sede":null,"DNI":"99999999","Nombre":"Test1","Puntaje":"100"}}

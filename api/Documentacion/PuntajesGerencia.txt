@@ -1,0 +1,4 @@
+Puntajes por gerencia
+Método GET
+Url: http://localhost:8082/api/index.php/gerencias/puntajes
+{"Gerencias":[{"ID":"1","Nombre":"gerencia 1","Puntaje":"0"}]}

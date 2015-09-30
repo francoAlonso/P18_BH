@@ -9,7 +9,7 @@ class Puntaje_Gerencia
 	{
 		$params = array();
 		$statement = $pdo->prepare('
-				SELECT G.ID, G.Nombre, SUM(U.Puntaje) AS Puntaje
+				SELECT G.ID, G.Nombre, SUM(COALESCE(U.Puntaje, 0)) AS Puntaje
 				FROM Gerencia G
 				LEFT JOIN Usuario U ON G.ID = U.ID_Gerencia
 				GROUP BY G.ID, G.Nombre

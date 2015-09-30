@@ -13,7 +13,7 @@ class Puntaje_Partida_Usuario
 				SELECT
 					P.ID AS ID_Partida
 					, U.ID AS ID_Usuario
-					, SUM(N.Puntaje) AS Puntaje_Partida
+					, SUM(COALESCE(N.Puntaje, 0)) AS Puntaje_Partida
 				FROM Partida P
 				LEFT JOIN Partida_Usuario PU ON P.ID = PU.ID_Partida
 				LEFT JOIN Usuario U ON PU.ID_Usuario = U.ID
@@ -41,7 +41,7 @@ class Puntaje_Partida_Usuario
 				SELECT
 					P.ID AS ID_Partida
 					, U.ID AS ID_Usuario
-					, SUM(N.Puntaje) AS Puntaje_Partida
+					, SUM(COALESCE(N.Puntaje, 0)) AS Puntaje_Partida
 				FROM Partida P
 				LEFT JOIN Partida_Usuario PU ON P.ID = PU.ID_Partida
 				LEFT JOIN Usuario U ON PU.ID_Usuario = U.ID

@@ -1,0 +1,158 @@
+Crear Partida:
+Request: método POST
+	Url: http://localhost:8082/api/index.php/partida/generar/:ID_Usuario:
+Respuesta (ejemplo):
+{
+    "Partida": {
+        "ID": "53",
+        "Habilitado": "1",
+        "Fecha_Inicio": "2015-09-29 22:56:30",
+        "Fecha_Fin": null,
+        "Cantidad_Usuario": "2",
+        "Cantidad_Preguntas": "10"
+    },
+    "Preguntas": [
+        {
+            "Pregunta": {
+                "ID": "142",
+                "ID_Nivel": "1",
+                "Texto": "13",
+                "Habilitado": "1",
+                "ID_Partida": "53",
+                "ID_Pregunta": "13"
+            },
+            "Respuestas": []
+        },
+        {
+            "Pregunta": {
+                "ID": "143",
+                "ID_Nivel": "1",
+                "Texto": "18",
+                "Habilitado": "1",
+                "ID_Partida": "53",
+                "ID_Pregunta": "18"
+            },
+            "Respuestas": []
+        },
+        {
+            "Pregunta": {
+                "ID": "144",
+                "ID_Nivel": "1",
+                "Texto": "10?",
+                "Habilitado": "1",
+                "ID_Partida": "53",
+                "ID_Pregunta": "2"
+            },
+            "Respuestas": [
+                {
+                    "ID": "3",
+                    "ID_Pregunta": "2",
+                    "Texto": "10",
+                    "Habilitado": "1"
+                },
+                {
+                    "ID": "4",
+                    "ID_Pregunta": "2",
+                    "Texto": "20",
+                    "Habilitado": "1"
+                },
+                {
+                    "ID": "5",
+                    "ID_Pregunta": "2",
+                    "Texto": "30",
+                    "Habilitado": "1"
+                }
+            ]
+        },
+        {
+            "Pregunta": {
+                "ID": "145",
+                "ID_Nivel": "1",
+                "Texto": "12",
+                "Habilitado": "1",
+                "ID_Partida": "53",
+                "ID_Pregunta": "12"
+            },
+            "Respuestas": []
+        },
+        {
+            "Pregunta": {
+                "ID": "146",
+                "ID_Nivel": "1",
+                "Texto": "9",
+                "Habilitado": "1",
+                "ID_Partida": "53",
+                "ID_Pregunta": "9"
+            },
+            "Respuestas": []
+        },
+        {
+            "Pregunta": {
+                "ID": "147",
+                "ID_Nivel": "1",
+                "Texto": "8",
+                "Habilitado": "1",
+                "ID_Partida": "53",
+                "ID_Pregunta": "8"
+            },
+            "Respuestas": []
+        },
+        {
+            "Pregunta": {
+                "ID": "148",
+                "ID_Nivel": "1",
+                "Texto": "11",
+                "Habilitado": "1",
+                "ID_Partida": "53",
+                "ID_Pregunta": "11"
+            },
+            "Respuestas": [
+                {
+                    "ID": "7",
+                    "ID_Pregunta": "11",
+                    "Texto": "Pregunta 11 - Respuesta 1",
+                    "Habilitado": "1"
+                },
+                {
+                    "ID": "8",
+                    "ID_Pregunta": "11",
+                    "Texto": "Pregunta 11 - Respuesta 2",
+                    "Habilitado": "1"
+                }
+            ]
+        },
+        {
+            "Pregunta": {
+                "ID": "149",
+                "ID_Nivel": "1",
+                "Texto": "7",
+                "Habilitado": "1",
+                "ID_Partida": "53",
+                "ID_Pregunta": "7"
+            },
+            "Respuestas": []
+        },
+        {
+            "Pregunta": {
+                "ID": "150",
+                "ID_Nivel": "1",
+                "Texto": "10",
+                "Habilitado": "1",
+                "ID_Partida": "53",
+                "ID_Pregunta": "10"
+            },
+            "Respuestas": []
+        },
+        {
+            "Pregunta": {
+                "ID": "151",
+                "ID_Nivel": "1",
+                "Texto": "6",
+                "Habilitado": "1",
+                "ID_Partida": "53",
+                "ID_Pregunta": "6"
+            },
+            "Respuestas": []
+        }
+    ]
+}
