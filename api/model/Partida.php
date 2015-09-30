@@ -33,7 +33,6 @@ class Partida
 		$statement->setFetchMode(PDO::FETCH_CLASS, 'Partida');
 		return $statement->fetch();
 	}
-	
 	public static function CrearPartida($pdo){
 		$pdo->beginTransaction();
 		$now = new DateTime();
@@ -67,6 +66,46 @@ class Partida
 		$partida = Partida::ObtenerPorId($ID_Partida, $pdo);
 		return $partida;
 	}
-
+	public static function CantidadPreguntasSinResponderUsuario($ID_Partida, $ID_Usuario, $pdo)
+	{
+		$params = array(':ID_Partida' => $ID_Partida, ':ID_Usuario' => $ID_Usuario);
+		$statement = $pdo->prepare('SELECT COUNT(*)
+										FROM Partida P
+										LEFT JOIN Partida_Usuario PU ON P.ID = PU.ID_Partida
+										LEFT JOIN Partida_Pregunta PP ON P.ID = PP.ID_Partida
+										LEFT JOIN Partida_Respuesta PR ON PU.ID = PR.ID_Partida_Usuario AND PP.ID = PR.ID_Partida_Pregunta
+										WHERE (PR.ID IS NULL)
+											AND PU.ID_Usuario = :ID_Usuario
+											AND P.ID = :ID_Partida');
+		$statement->execute($params);
+		$cantidad = $statement->fetch(PDO::FETCH_NUM);
+		return $cantidad;
+	}
+	public static function CantidadUsuariosNoFinalizados($ID_Partida, $pdo)
+	{
+		$params = array(':ID_Partida' => $ID_Partida);
+		$statement = $pdo->prepare('SELECT COUNT(*)
+										FROM Partida P
+										LEFT JOIN Partida_Usuario PU ON P.ID = PU.ID_Partida
+										WHERE (PU.Fecha_Fin IS NULL)
+											AND P.ID = :ID_Partida');
+		$statement->execute($params);
+		$cantidad = $statement->fetch(PDO::FETCH_NUM);
+		return $cantidad;
+	}
+	public static function Finalizar($ID_Partida, $pdo)
+	{
+		$pdo->beginTransaction();
+		$now = new DateTime();
+		$params = array(':ID' => $ID_Partida, ':Fecha_Fin'=>$now->format('Y-m-d H:i:s'));
+		$statement = $pdo->prepare('UPDATE Partida
+									SET Fecha_Fin = :Fecha_Fin
+									WHERE ID = :ID');
+		$statement->execute($params);
+		$idPartida = $pdo->lastInsertId();
+		$partida = Partida_Usuario::ObtenerPorId($idPartida, $pdo);
+		$pdo->commit();
+		return $partida;
+	}
 }
 ?>

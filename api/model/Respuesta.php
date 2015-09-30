@@ -9,7 +9,10 @@ class Respuesta
 	
 	public function EsCorrecta()
 	{
-		return $this->Correcta;
+		$correcta = false;
+		if ($this->Correcta == 1)
+			$correcta = true;
+		return $correcta;
 	}
 	
 	public static function ObtenerTodos($pdo)

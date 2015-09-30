@@ -56,5 +56,16 @@ class Pregunta
 		$statement->setFetchMode(PDO::FETCH_CLASS, 'Pregunta');
 		return $statement->fetchAll();
 	}
+	public static function ObtenerPreguntasPorPartidaPregunta($pdo, $ID_Partida, $ID_Pregunta)
+	{
+		$params = array(':ID_Partida' => $ID_Partida, ':ID_Pregunta' => $ID_Pregunta);
+		$statement = $pdo->prepare('
+				SELECT * FROM Pregunta Pr
+				LEFT JOIN Partida_Pregunta PP ON PP.ID_Pregunta = Pr.ID
+				WHERE PP.ID_Partida = :ID_Partida AND PP.ID_Pregunta = :ID_Pregunta');
+		$statement->execute($params);
+		$statement->setFetchMode(PDO::FETCH_CLASS, 'Pregunta');
+		return $statement->fetchAll();
+	}
 }
 ?>

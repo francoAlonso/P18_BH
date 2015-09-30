@@ -12,6 +12,8 @@ require 'model/Nivel.php';
 require 'model/Partida_Pregunta.php';
 require 'model/Partida_Respuesta.php';
 require 'model/Partida_Usuario.php';
+require 'model/Puntaje_Partida_Usuario.php';
+require 'model/Puntaje_Gerencia.php';
 require 'model/Sede.php';
 require 'controller/EmpresaController.php';
 require 'controller/GerenciaController.php';
@@ -25,6 +27,7 @@ require 'controller/PreguntaController.php';
 require 'controller/RespuestaController.php';
 require 'controller/SedeController.php';
 
+
 // Permite el acceso desde otros dominios (CORS) - INICIO
 if (isset($_SERVER['HTTP_ORIGIN'])) {
 	header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
@@ -32,7 +35,6 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
 	header('Access-Control-Max-Age: 86400');
 }
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-
 	if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']))
 		header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 
@@ -88,7 +90,11 @@ $app->post('/partida/responder', function () use ($app, $pdo){
 		$ID_Partida = $recibido->ID_Partida;
 		$ID_Pregunta = $recibido->ID_Pregunta;
 		$ID_Respuesta = $recibido->ID_Respuesta;
+		
+		$resultado = PartidaController::ResponderPregunta($pdo, $ID_Usuario, $ID_Partida, $ID_Pregunta, $ID_Respuesta);		
+		
 		$pdo->commit();
+		echo json_encode(array("Resultado" => $resultado));
 	}
 	catch (Exception $ex)
 	{
@@ -162,6 +168,7 @@ $app->post('/usuario/agregar', function() use ($app, $pdo) {
 });
 $app->post('/usuario/login', function() use ($app, $pdo) {
 	try{
+		$usuario = null;
 		$respuesta = false;
 		$datosRecibidos = json_decode($app->request->getBody());
 		$usuario = UsuarioController::Logeo($datosRecibidos->Nombre, $datosRecibidos->Contrasena, $datosRecibidos->DNI, $pdo);
@@ -170,13 +177,28 @@ $app->post('/usuario/login', function() use ($app, $pdo) {
 		}else{
 			$respuesta = true;
 		}
-		echo ('Validado:' . var_export($respuesta, true));
-	}catch (Exception $ex){
+		
+		echo json_encode(array("Validado" => $respuesta, "Usuario" => $usuario));
+	}
+	catch (Exception $ex)
+	{
 		$app->response->setStatus(500);
 		echo $ex->getMessage();
 	}
 });
-
+$app->get('gerencias/puntajes', function () use ($app, $pdo)
+{
+	try
+	{
+		$gerencias = Puntaje_Gerencia::ObtenerTodos($pdo);
+		echo json_encode(array('Gerencias' => $gerencias));
+	}
+	catch (Exception $ex)
+	{
+		$app->response->setStatus(500);
+		echo $ex->getMessage();
+	}
+});
 
 
 $app->run();

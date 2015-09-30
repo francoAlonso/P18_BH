@@ -16,7 +16,7 @@ class Gerencia
 				');
 		$statement->execute($params);
 		$statement->setFetchMode(PDO::FETCH_CLASS, 'Gerencia');
-		return $statement->fetchAll(); // fetch trae uno sólo (o debe iterarse). fetchAll trae todos los registros.
+		return $statement->fetchAll(); // fetch trae uno sï¿½lo (o debe iterarse). fetchAll trae todos los registros.
 	}
 	public static function ObtenerPorId($id, $pdo)
 	{
@@ -31,5 +31,6 @@ class Gerencia
 		$statement->setFetchMode(PDO::FETCH_CLASS, 'Gerencia');
 		return $statement->fetch();
 	}
+	
 }
 ?>

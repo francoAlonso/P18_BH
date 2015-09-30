@@ -45,5 +45,31 @@ class Partida_Usuario
 		return $partidaUsuario;
 	}
 	
+	public static function Obtener($ID_Partida, $ID_Usuario, $pdo) {
+		$params = array(':ID_Partida' => $ID_Partida, ':ID_Usuario' => $ID_Usuario);
+		$statement = $pdo->prepare('
+				SELECT *
+				FROM Partida_Usuario
+				WHERE ID_Usuario = :ID_Usuario AND ID_Partida = :ID_Partida
+				LIMIT 0,1');
+		$statement->execute($params);
+		$statement->setFetchMode(PDO::FETCH_CLASS, 'Partida_Usuario');
+		return $statement->fetch();
+	}
+	public static function Finalizar($ID_Partida_Usuario, $pdo)
+	{
+		$pdo->beginTransaction();
+		$now = new DateTime();
+		$params = array(':ID' => $ID_Partida_Usuario, ':Fecha_Fin'=>$now->format('Y-m-d H:i:s'));
+		$statement = $pdo->prepare('UPDATE Partida_Usuario
+									SET Fecha_Fin = :Fecha_Fin
+									WHERE ID = :ID');
+		$statement->execute($params);
+		$idPartidaUsuario = $pdo->lastInsertId();
+		$partidaUsuario = Partida_Usuario::ObtenerPorId($idPartidaUsuario, $pdo);
+		$pdo->commit();
+		return $partidaUsuario;
+	}
+	
 }
 ?>

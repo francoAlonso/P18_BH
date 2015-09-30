@@ -23,5 +23,13 @@ class UsuarioController
 		$logeo = Usuario::Login($nombre, $contrasena, $dni, $pdo);
 		return $logeo;
 	}
+	
+	public static function ActualizarPuntaje($ID_Usuario, $puntaje, $pdo)
+	{
+		$usuario = UsuarioController::ObtenerPorId($ID_Usuario, $pdo);
+		$puntaje += $usuario->Puntaje;
+		$usuario = Usuario::ActualizarPuntaje($ID_Usuario, $puntaje, $pdo);
+		return $usuario;
+	}
 }
 ?>

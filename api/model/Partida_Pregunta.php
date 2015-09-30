@@ -37,8 +37,22 @@ class Partida_Pregunta
 				WHERE ID_Partida = :ID_Partida');
 		$statement->execute($params);
 		$statement->setFetchMode(PDO::FETCH_CLASS, 'Partida_Pregunta');
+		return $statement->fetchAll();
+	}
+	
+	public static function ObtenerPorPartidaPregunta($pdo, $ID_Partida, $ID_Pregunta)
+	{
+		$params = array(':ID_Partida' => $ID_Partida, ':ID_Pregunta' => $ID_Pregunta);
+		$statement = $pdo->prepare('
+				SELECT *
+				FROM Partida_Pregunta
+				WHERE ID_Partida = :ID_Partida AND Id_Pregunta = :ID_Pregunta
+				LIMIT 0,1');
+		$statement->execute($params);
+		$statement->setFetchMode(PDO::FETCH_CLASS, 'Partida_Pregunta');
 		return $statement->fetch();
 	}
+	
 	public static function AgregarPregunta($pdo, $ID_Partida, $ID_Pregunta)
 	{
 		$pdo->beginTransaction();

@@ -112,7 +112,21 @@ class Usuario
 		$statement->setFetchMode(PDO::FETCH_CLASS, 'Usuario');
 		return $statement->fetch();
 	}
-
+	
+	public static function ActualizarPuntaje($ID_Usuario, $puntaje, $pdo)
+	{
+		$pdo->beginTransaction();
+		$params = array(':ID_Usuario' => $ID_Usuario, ':Puntaje' => $puntaje);
+		$statement = $pdo->prepare('
+				UPDATE Usuario
+				SET Puntaje = :Puntaje
+				WHERE ID = :ID_Usuario
+				');
+		$statement->execute($params);
+		$usuario = Usuario::ObtenerPorId($ID_Usuario, $pdo);
+		$pdo->commit();
+		return $usuario;
+	}
 }
 
 ?>

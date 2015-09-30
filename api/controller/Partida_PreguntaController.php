@@ -10,5 +10,10 @@ Class Partida_PreguntaController{
 		$preguntas = Pregunta::ObtenerPreguntasPorPartida($pdo, $ID_Partida);
 		return $preguntas;
 	}
+	public static function ObtenerPreguntasPorPartidaPregunta ($pdo, $ID_Partida, $ID_Pregunta)
+	{
+		$preguntas = Pregunta::ObtenerPreguntasPorPartidaPregunta($pdo, $ID_Partida, $ID_Pregunta);
+		return $preguntas;
+	}
 }
 ?>
