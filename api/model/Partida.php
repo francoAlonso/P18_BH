@@ -73,7 +73,8 @@ class Partida
 										FROM Partida P
 										LEFT JOIN Partida_Usuario PU ON P.ID = PU.ID_Partida
 										LEFT JOIN Partida_Pregunta PP ON P.ID = PP.ID_Partida
-										LEFT JOIN Partida_Respuesta PR ON PU.ID = PR.ID_Partida_Usuario AND PP.ID = PR.ID_Partida_Pregunta
+										LEFT JOIN Partida_Respuesta PR 	ON PU.ID = PR.ID_Partida_Usuario
+																		AND PP.ID = PR.ID_Partida_Pregunta
 										WHERE (PR.ID IS NULL)
 											AND PU.ID_Usuario = :ID_Usuario
 											AND P.ID = :ID_Partida');

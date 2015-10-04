@@ -88,7 +88,7 @@ Class PartidaController
 	{
 		$partidaFinalizada = Partida::Finalizar($ID_Partida, $pdo);
 		// Calcular puntajes
-		$puntajes = Puntaje_Partida_Usuario_Gerencia::ObtenerPorPartida($ID_Partida, $pdo);
+		$puntajes = Puntaje_Partida_Usuario::ObtenerPorPartida($ID_Partida, $pdo);
 		// El primero es el ganador, el segundo el perdedor
 		$puntajeGanador = $puntajes[0];
 		$puntajePerdedor = $puntajes[1];
