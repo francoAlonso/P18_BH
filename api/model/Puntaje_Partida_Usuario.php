@@ -41,7 +41,9 @@ class Puntaje_Partida_Usuario
 				SELECT
 					P.ID AS ID_Partida
 					, U.ID AS ID_Usuario
-					, SUM(COALESCE(N.Puntaje, 0)) AS Puntaje_Partida
+					, U.Gerencia AS Gerencia_Usuario
+					, SUM(COALESCE(N.Puntaje, 0)) * (100 / ((SELECT SUM(*) FROM Usuario) * (SELECT SUM(*) Usuario WHERE Gerencia = Gerencia_Usuario)) / 100) AS Puntaje_Partida
+					, 
 				FROM Partida P
 				LEFT JOIN Partida_Usuario PU ON P.ID = PU.ID_Partida
 				LEFT JOIN Usuario U ON PU.ID_Usuario = U.ID
