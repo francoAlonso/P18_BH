@@ -127,6 +127,34 @@ class Usuario
 		$pdo->commit();
 		return $usuario;
 	}
+	
+	public static function ActualizarContrasena($idUsuario, $contrasenaNueva, $pdo)
+	{
+		$pdo->beginTransaction();
+		$params = array(':ID' => $idUsuario, ':ContrasenaNueva' => $contrasenaNueva);
+		$statement = $pdo->prepare('
+				UPDATE Usuario
+				SET ContrasenaNueva = :ContrasenaNueva, CodigoVerificacion = UUID()
+				WHERE ID = :ID');
+		$statement->execute($params);
+		$usuario = Usuario::ObtenerPorId($idUsuario, $pdo);
+		$pdo->commit();
+		return $usuario;
+	}
+	
+	public static function ConfirmarCambioContrasena($codigoVerificador, $pdo)
+	{
+		$pdo->beginTransaction();
+		$params = array(':CodigoVerificador' => $codigoVerificador);
+		$statement = $pdo->prepare('
+				UPDATE Usuario
+				SET Contrasena = ContrasenaNueva,
+					ContrasenaNueva = NULL,
+					CodigoVerificacion = NULL
+				WHERE CodigoVerificacion = :CodigoVerificador');
+		$statement->execute($params);
+		$pdo->commit();
+	}
 }
 
 ?>

@@ -186,6 +186,22 @@ $app->post('/usuario/login', function() use ($app, $pdo) {
 		echo $ex->getMessage();
 	}
 });
+$app->post('/usuario/cambiarContrasena', function () use ($app, $pdo)
+{
+	try{
+		$usuario = null;
+		$respuesta = false;
+		$datosRecibidos = json_decode($app->request->getBody());
+		$return = UsuarioController::CambiarContrasena($datosRecibidos->ID_Usuario, $datosRecibidos->ContrasenaActual, $datosRecibidos->ContrasenaNueva, $pdo);
+	
+		echo json_encode($return);
+	}
+	catch (Exception $ex)
+	{
+		$app->response->setStatus(500);
+		echo $ex->getMessage();
+	}
+});
 $app->get('/gerencias/puntajes', function () use ($app, $pdo)
 {
 	try
