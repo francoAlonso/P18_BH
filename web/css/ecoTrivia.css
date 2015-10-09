@@ -1,0 +1,625 @@
+@charset "utf-8";
+/* CSS Document */
+
+.ciudad_inicio {
+	background-image:url(../imagenes/ciudad.png);
+	background-repeat: repeat-x;
+	background-position:center bottom;
+	background-size: 100%;
+	width: 100%;
+	height:100%;
+	position: fixed;
+	}
+
+span {
+	font-family:"Berlin Sans FB";
+	display:inline-block;
+	font-size: large;
+	/*background-color: ;*/
+}
+.textura_top {
+	background-image: url(../imagenes/texturarectok.png);
+	background-repeat: no-repeat;
+	background-position: top left;
+	background-size: 33%;
+	width: 50%;
+	height: 50%;
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: -1;
+}
+
+.textura_top_right {
+	right: 0;
+	left: auto;
+	-moz-transform: scaleX(-1); /*CODIGO PARA MOZILLA FIREFOX*/
+    -o-transform: scaleX(-1); /*CODIGO PARA OPERA*/
+    -webkit-transform: scaleX(-1); /*CODIGO PARA WEBKIT (SAFARI/GOOGLE CHROME)*/
+    transform: scaleX(-1); /*CODIGO PARA CHROME*/
+    filter: FlipH; /*CODIGO PARA INTERNET EXPLORER*/
+    -ms-filter: "FlipH"; /*CODIGO PARA INTERNET EXPLORER*/
+}
+	
+.logo_eco_trivia{
+	background-image:url(../imagenes/logo2.png);
+	background-repeat:no-repeat;
+	background-position: center;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-size: 100%;
+	}	
+.boton_registrarse {
+	background-image:url(../imagenes/boton_registrate.png);
+	background-repeat:no-repeat;
+	top: 75%;
+	left: 30%;
+	width: 270px;
+	width: 17%;
+	height: 53px;
+	height: 10.5%;
+	position: absolute;
+	background-size: 100%;
+	background-position: center;
+	}
+	
+.carton_registro {
+	background-image:url(../imagenes/carton_registro.png);
+	background-repeat:no-repeat;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-size: 100%;
+	z-index: -1;
+	}		
+
+.boton_juga_ahora2 {
+	background-image:url(../imagenes/boton_juga_ahora2.png);
+	background-repeat: no-repeat;
+	top: 65%;
+	left: 60%;
+	width: 234px;
+	width: 17%;
+	height: 51px;
+	height: 10.5%;
+	position: absolute;
+	background-size: 100%;
+	background-position: center;
+	}	
+	
+.boton_iniciar_sesion {
+	background-image:url(../imagenes/boton_iniciar_sesion.png);
+	background-repeat:no-repeat;
+	background-position: center;
+	top: 75%;
+	left: 50%;
+	width: 269px;
+	width: 17%;
+	height: 67px;
+	height: 10.5%;
+	position: absolute;
+	background-size: 100%;
+	}	
+
+.carton_registrarse_iniciarSesion {
+	background-image:url(../imagenes/carton_registrate_iniciar2.png);
+	background-repeat:no-repeat;
+	width: 80%;
+	height: 95%;
+	left: 10%;
+	position: absolute;
+	background-size: 100%;
+	z-index: -1;
+	}	
+	
+.logo_eco_trivia_registro{
+	background-image:url(../imagenes/logo2.png);
+	background-repeat:no-repeat;
+	background-position: center;
+	right: 210px;
+	top: -30px;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-size: 50%;
+	}	
+
+.logo_eco_trivia_inicio {
+	background-image:url(../imagenes/logo.png);
+	background-repeat:no-repeat;
+	background-position: top center;
+	top: 20px;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-size: 16%;
+	}
+	
+.boton_jugar {
+	background-image:url(../imagenes/boton_jugar.png);
+	background-repeat: no-repeat;
+	top: 22%;
+	left: 42%;
+	width: 177px;
+	width: 17%;
+	height: 118px;
+	height: 20.5%;
+	position: absolute;
+	background-size: 100%;
+	background-position: center;
+	z-index:1;
+	}	
+	
+.boton_perfil {
+	background-image:url(../imagenes/boton_perfil.png);
+	background-repeat: no-repeat;
+	top: 45%;
+	left: 42%;
+	width: 177px;
+	width: 17%;
+	height: 118px;
+	height: 20.5%;
+	position: absolute;
+	background-size: 100%;
+	background-position: center;
+	z-index:1;
+	}	
+	
+.boton_ranking {
+	background-image:url(../imagenes/boton_ranking.png);
+	background-repeat: no-repeat;
+	top: 68%;
+	left: 42%;
+	width: 177px;
+	width: 17%;
+	height: 118px;
+	height: 20.5%;
+	position: absolute;
+	background-size: 100%;
+	background-position: center;
+	z-index:1;
+	}	
+	
+/*	
+.ciudad {
+	background-image:url(../imagenes/ciudad.png);
+	background-repeat: repeat-x;
+	background-position:center bottom;
+	width: 100%;
+	height:720px;
+	z-index:-1;
+	}
+	*/
+	
+.arboles_left {
+	background-image: url(../imagenes/arboles.png);
+	background-repeat:no-repeat;
+	background-position: bottom left;
+	left: 20px;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-size: 38%;
+	}
+	
+.arboles_right	{
+	background-image: url(../imagenes/arboles_right.png);
+	background-repeat:no-repeat;
+	background-position: bottom right;
+	right: 20px;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-size: 38%;
+	}	
+
+/*.mi_perfil {
+	background-image: url(../imagenes/Boton_MiPerfil.png);
+	background-repeat:no-repeat;
+	background-position: top center;
+	top: 20px;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-size: 50%;
+	}*/
+
+.boton_volver {
+	background-image: url(../imagenes/boton_volver.png);
+	background-repeat: no-repeat;	
+	bottom: 0%;
+	left: 0%;
+	width: 108px;
+	width: 10%;
+	height: 75px;
+	height: 20.5%;
+	position: absolute;
+	background-size: 100%;
+	background-position: bottom left;
+	}
+	
+.boton_volver2 {
+	background-image: url(../imagenes/boton_volver2.png);
+	background-repeat: no-repeat;	
+	bottom: 3%;
+	right: 10%;
+	width: 229px;
+	width: 16%;
+	height: 109px;
+	height: 20.5%;
+	position: absolute;
+	background-size: 100%;
+	background-position: bottom left;
+	}	
+	
+	
+.arbol_miPerfil {
+	background-image:url(../imagenes/arbol_miPerfil_3.png);
+	background-repeat:no-repeat;
+	background-position:left bottom;
+	background-size:100%;
+	width: 100%;
+	height:100%;
+	position: fixed;
+	z-index:-1;
+	}	
+
+.ranking {
+	background-image: url(../imagenes/ranking.png);
+	background-repeat:no-repeat;
+	background-position: top center;
+	top: 20px;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-size: 30%;
+	}
+	
+.carton_ranking {
+	background-image: url(../imagenes/cartones_ranking.png);
+	background-repeat:no-repeat;
+	background-position: top center;
+	top: 70px;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-size: 35%;
+	}
+	
+.carton_juego {
+	background-image: url(../imagenes/carton_juego.png);
+	background-repeat:no-repeat;
+	background-position: center;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-size: 80%;
+	}	
+
+.corazon {
+	background-image: url(../imagenes/corazon.png);
+	background-repeat:no-repeat;
+	background-position: top center;
+	top: 130px;
+	right: 250px;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-size: 4%;
+	}	
+	
+.reloj1 {
+	background-image:url(../imagenes/reloj1.png);
+	background-repeat:no-repeat;
+	background-position: center top;
+	top: 130px;
+	left:230px;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-size: 4%;
+	}	
+
+.reloj2 {
+	background-image:url(../imagenes/reloj2.png);	
+	background-repeat:no-repeat;
+	background-position: center top;
+	top: 130px;
+	left:230px;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-size: 4%;
+	}	
+	
+.papel1 {
+	background-image:url(../imagenes/papel1.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	top: 29px;
+	left: -50px;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-size: 45%;
+	z-index:2;
+	}	
+
+.papel_verde {
+	background-image:url(../imagenes/papel_verde.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	top: 29px;
+	left: -50px;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-size: 45%;
+	z-index:2;	
+	}	
+	
+.papel_rojo {
+	background-image:url(../imagenes/papel_rojo.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	top: 29px;
+	left: -50px;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-size: 45%;
+	z-index:2;
+	}
+	
+.respuesta {
+	background-image:url(../imagenes/respuesta.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	top: 25px;
+	left: -60px;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-size: 25%;
+	z-index:2;
+	}	
+	
+.pregunta {
+	background-image: url(../imagenes/pregunta.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	top: -45px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-size: 40%;
+	z-index:2;
+	}	
+	
+.felicidades_lo_lograste {
+	background-image:url(../imagenes/felicidades_lo_lograste.png);	
+	background-repeat: no-repeat;
+	background-position: center center;
+	top: -45px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-size: 40%;
+	z-index:2;
+	}
+	
+.nivel2 {
+	background-image: url(../imagenes/nivel2.png);	
+	background-repeat: no-repeat;
+	background-position: center center;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-size: 10%;
+	z-index:2;
+	}	
+	
+.ganaste {
+	background-image: url(../imagenes/ganaste.png);	
+	background-repeat: no-repeat;
+	background-position: center center;
+	top: -80px;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-size: 15%;
+	z-index:2;
+	}	
+	
+.volver_a_jugar {
+	background-image: url(../imagenes/volver_a_jugar.png);	
+	background-repeat: no-repeat;
+	background-position: center center;
+	top: 60px;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-size: 15%;
+	z-index:2;
+	}	
+	
+.salir {
+	background-image: url(../imagenes/salir.png);	
+	background-repeat: no-repeat;
+	background-position: center center;
+	top: 90px;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-size: 6%;
+	z-index:2;
+	}
+	
+.buho_dormido {
+	/*background-image: url(../imagenes/Buho_ok.swf);*/
+	background-repeat:no-repeat;
+	background-position: right top;
+	top: 28%;
+	right: 9%;
+	width: 25%;
+	height: 34%;
+	position: absolute;
+	background-size: 100%;
+	z-index:3;
+	}
+
+#carton {
+    transition: all 1.0s;
+}
+
+#carton:hover {
+    opacity: 0.1;
+} 
+
+
+#carton3 {
+    transition: all 1.0s;
+}
+
+#carton3:hover {
+	opacity: 0.1;
+}
+
+body {
+	margin: 0;
+}
+
+.perfil_bg {
+	width: auto;
+	height:100%;
+	position:absolute;
+	z-index: -1;
+	top:0;
+	left: 0;
+}
+/*BATMAN CODE*/
+body {
+	margin: 0;
+	padding: 0;
+	background-image: url(../imagenes/fondo.jpg);
+	background-repeat:repeat-x;
+	background-position:top left;
+}
+.text_container {
+	position: absolute;
+	top: 60%;
+	left: 45%;
+}
+.logo_puerta18 {
+	background-image:url(../imagenes/puerta.png);
+	background-repeat:no-repeat;
+	background-position: top right;
+	top: 25px;
+	right: 65px;
+	width: 113px;
+	width: 5.886%;
+	height: 44px;
+	height: 5%;
+	position: fixed;
+	background-size: 100%;
+}	
+.logo_bh {
+	background-image:url(../imagenes/BH.png);
+	background-repeat:no-repeat;
+	background-position: top left;
+	top: 25px;
+	left: 65px;
+	width: 133px;
+	width: 6.9275%;
+	height: 47px;
+	height: 7%;
+	position: fixed;
+	background-size: 100%;
+}
+.fondo_ciudad_valle {
+	background-image:url(../imagenes/fondo_ciudad_valle.png);
+	background-repeat:no-repeat;
+	background-position: bottom center; /*CAMBIE LA POSISION A BOTTOM CENTER EN VEZ DE SOLO CENTER*/
+	width: 100%;
+	height: 100%;
+	z-index:-1;
+	position: fixed;
+	background-size: 100%;
+}
+.carton_juega_ahora{
+	background-image: url(../imagenes/juga_ahora.png);
+	background-repeat: no-repeat;
+	top: 50%;
+	left: 43%;
+	width: 320px;
+	width: 17%;
+	height: 100px;
+	height: 10.5%;
+	position: absolute;
+	background-size: 100%;
+	background-position: center;
+}
+.form_container {
+    position: absolute;
+    left: 62.5%;
+    top: 35%;
+}
+.form_container input {
+    display: block;
+    padding: 10px 12px;
+    width: 105%;
+    margin-bottom: 16%;
+    border: medium none;
+    outline: medium none;
+    /*background-color: transparent;*/
+}
+/*EJEMPLO DE CODIGO PARA CIERTAS RESOLUCIONES. EN ESTE CASO ABARCA TODAS LAS RESOLUCIONES DE HASTA UN MAXIMO DE 1024PX (MAX-WIDTH: 1024PX)*/
+@media screen and (max-width: 1024px) {
+	.logo_bh {
+		width: 13%;
+		height: 9%;
+	}
+	.logo_puerta18 {
+		width: 11.1%;
+		height: 9%;
+	}
+	.boton_registrarse {
+		top: 60%;
+	}
+	
+	.boton_iniciar_sesion {
+		top: 60%;
+	}
+}
+/*BATMAN CODE*/
+
+.text_container_registro {
+	position: absolute;
+	top: 41%;
+	left: 50%;
+	color: white;
+}
+
+.text_container_ranking {
+	position: absolute;
+	top: 18%;
+	left: 37%;	
+}
+
+.texto_ranking {
+	font-size:36px;
+	}
+	
+.text_containter_miPerfil {
+	color: white;
+	position: absolute;
+	top: 25%;
+	left: 37%;
+	}	
+
+.texto_miPerfil {
+	font-size:xx-large;
+	}	
