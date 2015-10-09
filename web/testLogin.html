@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+</head>
+<body>
+	<label>usuario</label><input type="text" id="txtUsuario" />
+	<label>password</label><input type="text" id="txtPassword" />
+	<button id="btnLogin">Log In</button>
+	
+	<script type="text/javascript">
+		$("#btnLogin").click(function() {
+			$.ajax({
+		         type: "POST",
+		         url: "http://localhost:8082/api/index.php/usuario/login",
+		         contentType: "application/json; charset=utf-8",
+		         dataType: "json",
+		         data: '{"Nombre": "Test1","Contrasena":"asd123","DNI":"99999999"}',
+		         success: function (data, status, jqXHR) {
+		             // do something
+		             console.log(data);
+		             console.log(status);
+		             console.log(jqXHR);
+		         },
+
+		         error: function (jqXHR, status) {
+		             // error handler
+		             console.log(jqXHR);
+		         }
+			});
+		});
+	</script>
+	
+</body>
+</html>
