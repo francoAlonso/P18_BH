@@ -19,8 +19,8 @@ class UsuarioController
 		return $listaUsuarios;
 	}
 
-	public static function Logeo($nombre, $contrasena, $dni, $pdo){
-		$logeo = Usuario::Login($nombre, $contrasena, $dni, $pdo);
+	public static function Logeo($nombre, $contrasena, $pdo){
+		$logeo = Usuario::Login($nombre, $contrasena, $pdo);
 		return $logeo;
 	}
 	

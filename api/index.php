@@ -171,7 +171,7 @@ $app->post('/usuario/login', function() use ($app, $pdo) {
 		$usuario = null;
 		$respuesta = false;
 		$datosRecibidos = json_decode($app->request->getBody());
-		$usuario = UsuarioController::Logeo($datosRecibidos->Nombre, $datosRecibidos->Contrasena, $datosRecibidos->DNI, $pdo);
+		$usuario = UsuarioController::Logeo($datosRecibidos->Nombre, $datosRecibidos->Contrasena, $pdo);
 		if ($usuario == null){
 			$respuesta = false;
 		}else{

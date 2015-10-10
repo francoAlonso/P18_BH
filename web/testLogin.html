@@ -12,17 +12,20 @@
 	
 	<script type="text/javascript">
 		$("#btnLogin").click(function() {
+			var _usuario = $("#txtUsuario").val();
+			var _contrasena = $("#txtPassword").val();
+			var _objectSend = new Object();
+			_objectSend.Nombre = _usuario;
+			_objectSend.Contrasena = _contrasena;
 			$.ajax({
 		         type: "POST",
 		         url: "http://localhost:8082/api/index.php/usuario/login",
 		         contentType: "application/json; charset=utf-8",
 		         dataType: "json",
-		         data: '{"Nombre": "Test1","Contrasena":"asd123","DNI":"99999999"}',
+		         data: JSON.stringify(_objectSend),
 		         success: function (data, status, jqXHR) {
 		             // do something
 		             console.log(data);
-		             console.log(status);
-		             console.log(jqXHR);
 		         },
 
 		         error: function (jqXHR, status) {
