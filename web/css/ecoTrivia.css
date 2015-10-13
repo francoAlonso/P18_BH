@@ -86,6 +86,7 @@ span {
 	position: absolute;
 	background-size: 100%;
 	background-position: center;
+	cursor: pointer;
 	}	
 	
 .boton_iniciar_sesion {
@@ -569,12 +570,32 @@ body {
 }
 .form_container input {
     display: block;
-    padding: 10px 12px;
+    padding: 14px 12px;
     width: 105%;
     margin-bottom: 16%;
     border: medium none;
     outline: medium none;
+	background-image: url("../imagenes/EspacioParaDatos_registro.png");
+	background-color: transparent;
+	background-repeat: no-repeat;
     /*background-color: transparent;*/
+}
+.form_container .first_input {
+	background-position: top center;
+}
+.form_container .last_input {
+	background-position: bottom center;
+}
+.form_container span {
+	font-family: "Berlin Sans FB";
+	display: block;
+	color: #FFF;
+	margin-left: -90%;
+	text-align: right;
+	float: left;
+	margin-top: 7%;
+	font-size: 1.2em;
+	/*font-weight: 600;*/
 }
 /*EJEMPLO DE CODIGO PARA CIERTAS RESOLUCIONES. EN ESTE CASO ABARCA TODAS LAS RESOLUCIONES DE HASTA UN MAXIMO DE 1024PX (MAX-WIDTH: 1024PX)*/
 @media screen and (max-width: 1024px) {
