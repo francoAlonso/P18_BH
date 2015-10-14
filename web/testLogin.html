@@ -2,15 +2,45 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Test</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 </head>
 <body>
-	<label>usuario</label><input type="text" id="txtUsuario" />
-	<label>password</label><input type="text" id="txtPassword" />
-	<button id="btnLogin">Log In</button>
+	<div id="divLogin">
+		<label>usuario</label><input type="text" id="txtUsuario" />
+		<label>password</label><input type="text" id="txtPassword" />
+		<button id="btnLogin">Log In</button>
+	</div>
+	<div id="divIniciarPartida">
+		<button id="btnIniciarPartida">Iniciar Partida</button>
+	</div>
+	<div id="divPartida">
+		<label id="lblPregunta">Pregunta</label>
+		<br>
+		<label id="lblRespuesta1">Respuesta 1</label>
+		<br>
+		<label id="lblRespuesta2">Respuesta 2</label>
+		<br>
+		<label id="lblRespuesta3">Respuesta 3</label>
+	</div>
 	
 	<script type="text/javascript">
+		var usuario = null;
+		var arrayPreguntas = null;
+		var partida = null;
+		var urlWs = "http://localhost:8082/api/index.php/";
+		var nroPreguntaActual = -1;
+		var objPregunta = null;
+		var arrayRespuestas = null;
+		var objRespuesta1 = null;
+		var objRespuesta2 = null;
+		var objRespuesta3 = null;
+		
+		$().ready(function() {
+			$("#divLogin").show();
+			$("#divIniciarPartida").hide();
+			$("#divPartida").hide();
+		});
 		$("#btnLogin").click(function() {
 			var _usuario = $("#txtUsuario").val();
 			var _contrasena = $("#txtPassword").val();
@@ -19,21 +49,109 @@
 			_objectSend.Contrasena = _contrasena;
 			$.ajax({
 		         type: "POST",
-		         url: "http://localhost:8082/api/index.php/usuario/login",
+		         url: urlWs + "usuario/login",
 		         contentType: "application/json; charset=utf-8",
 		         dataType: "json",
 		         data: JSON.stringify(_objectSend),
 		         success: function (data, status, jqXHR) {
-		             // do something
-		             console.log(data);
+		             if (data.Validado == true) {
+		            	 alert("Sesión iniciada");
+		            	 $("#divLogin").hide();
+		            	 $("#divIniciarPartida").show();
+		            	 usuario = data.Usuario;
+		             } else {
+		            	 alert("Sesión no iniciada");
+		             }
 		         },
-
 		         error: function (jqXHR, status) {
 		             // error handler
 		             console.log(jqXHR);
 		         }
 			});
 		});
+		$("#btnIniciarPartida").click(function() {
+			$.ajax({
+				type: "GET",
+				url: urlWs + "partida/generar/" + usuario.ID,
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				success: function (data, status, jqXHR) {
+					console.log(data);
+					partida = data.Partida;
+					arrayPreguntas = data.Preguntas;
+					nroPreguntaActual = -1;
+					$("#divIniciarPartida").hide();
+					$("#divLogin").hide();
+					$("#divPartida").show();
+					MostrarSiguientePregunta();
+				},
+				error: function (jqXHR, status) {
+					console.log(jqXHR);
+				}
+			});
+		});
+		$("#lblRespuesta1").click(function() {
+			ResponderPregunta(objRespuesta1.ID);
+		});
+		$("#lblRespuesta2").click(function() {
+			ResponderPregunta(objRespuesta2.ID);
+		});
+		$("#lblRespuesta3").click(function() {
+			ResponderPregunta(objRespuesta3.ID);
+		});
+		
+		var MostrarSiguientePregunta = function() {
+			nroPreguntaActual += 1;
+			objPregunta = arrayPreguntas[nroPreguntaActual].Pregunta;
+			arrayRespuestas = arrayPreguntas[nroPreguntaActual].Respuestas;
+			objRespuesta1 = arrayRespuestas[0];
+			objRespuesta2 = arrayRespuestas[1];
+			objRespuesta3 = arrayRespuestas[2];
+			$("#lblPregunta").text(objPregunta.Texto);
+			$("#lblRespuesta1").text(objRespuesta1.Texto);
+			$("#lblRespuesta2").text(objRespuesta2.Texto);
+			$("#lblRespuesta3").text(objRespuesta3.Texto);
+		};
+		
+		var ResponderPregunta = function(idRespuesta) {
+			var _objSend = new Object();
+			_objSend.ID_Usuario = usuario.ID;
+			_objSend.ID_Partida = partida.ID;
+			_objSend.ID_Pregunta = objPregunta.ID_Pregunta;
+			_objSend.ID_Respuesta = idRespuesta;
+			$.ajax({
+		         type: "POST",
+		         url: urlWs + "partida/responder",
+		         contentType: "application/json; charset=utf-8",
+		         dataType: "json",
+		         data: JSON.stringify(_objSend),
+		         success: function (data, status, jqXHR) {
+		             var _resultado = data.Resultado;
+		             var _correcta = _resultado.Respuesta_Correcta;
+		             var _finalizada = _resultado.Partida_Finalizada;
+		             alert("Correcta: " + _correcta + " - Finalizada: " + _finalizada);
+		             if (_correcta == true) {
+		            	 MostrarSiguientePregunta();
+		             }
+		             if (_finalizada == true) {
+		            	 $("#divPartida").hide();
+		            	 $("#divIniciarPartida").show();
+		            	 var arrayPreguntas = null;
+						 var partida = null;
+						 var nroPreguntaActual = -1;
+						 var objPregunta = null;
+						 var arrayRespuestas = null;
+						 var objRespuesta1 = null;
+						 var objRespuesta2 = null;
+						 var objRespuesta3 = null;
+		             }
+		         },
+		         error: function (jqXHR, status) {
+		             // error handler
+		             console.log(jqXHR);
+		         }
+			});
+		};
 	</script>
 	
 </body>
