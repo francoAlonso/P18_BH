@@ -41,17 +41,17 @@ class UsuarioController
 			$usuario = Usuario::ActualizarContrasena($idUsuario, $contrasenaNueva, $pdo);
 			//Envio mail
 			$recipients = $usuario->ObtenerMail();
-			$headers['From']    = 'leiboleo@hotmail.com';
+			$headers['From']    = 'noreply@p18bh.honor.es';
 			$headers['To']      = $usuario->ObtenerMail();
 			$headers['Subject'] = 'Cambio de contraseña - Buho Trivia';
 			
 			$body = 'Para aceptar el cambio de su contraseña, ingrese a la siguiente página web: http://localhost:8082/api/confirmarCambioContrasena?token=' . urlencode($usuario->ObtenerCodigoVerificacion());
 			
-			$smtpinfo["host"] = "smtp.live.com"; //Server de SMTP (x ejemplo hotmail)
-			$smtpinfo["port"] = "25";
+			$smtpinfo["host"] = "mx1.2freehosting.com"; //Server de SMTP (x ejemplo hotmail)
+			$smtpinfo["port"] = "2525";
 			$smtpinfo["auth"] = true;
-			$smtpinfo["username"] = ""; // Cuenta de mail
-			$smtpinfo["password"] = ""; // Contraseña del mail
+			$smtpinfo["username"] = "noreply@p18bh.honor.es"; // Cuenta de mail
+			$smtpinfo["password"] = "Puerta18"; // Contraseña del mail
 			
 			
 			// Create the mail object using the Mail::factory method
