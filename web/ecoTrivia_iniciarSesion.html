@@ -4,40 +4,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Eco Trivia - Iniciar Sesión</title>
 <link href="css/ecoTrivia.css" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="js/jquery.session.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-	$("#btnLogin").click(function() {
-			var _usuario = $("#txtUsuario").val();
-			var _contrasena = $("#txtPassword").val();
-			var _objectSend = new Object();
-			_objectSend.Nombre = _usuario;
-			_objectSend.Contrasena = _contrasena;
-			$.ajax({
-		         type: "POST",
-		         url: "http://localhost:8082/api/index.php/usuario/login",
-		         contentType: "application/json; charset=utf-8",
-		         dataType: "json",
-		         data: JSON.stringify(_objectSend),
-		         success: function (data, status, jqXHR) {
-		             // do something
-		             console.log(data);
-					 if(data.Validado) {
-						var user_id = data.Usuario.ID;
-						$.session.set("EcoTriviaUsuarioID", user_id);
-						console.log($.session.get("EcoTriviaUsuarioID"))
-					 }
-		         },
-
-		         error: function (jqXHR, status) {
-		             // error handler
-		             console.log(jqXHR);
-		         }
-			});
-		});
-});
-	</script>
 </head>
 
 <body>
@@ -45,20 +11,20 @@ $(document).ready(function(){
 <div class="logo_puerta18"></div>
 <div class="fondo_ciudad_valle"></div>
 <div class="carton_registro">
+	<a class="boton_juga_ahora2" href="ecoTrivia_inicio.html"></a>
 	<div class="form_container">
-    	<div>
+    	<div class="content">
             <span>USUARIO</span>
-            <input class="first_input" type="text" id="txtUsuario" name="usuario">
+            <input class="first_input" type="text" name="usuario">
         </div>
-        <div>
+        <div class="content">
             <span>CONTRASEÑA</span>
-            <input class="last_input" type="text" id="txtPassword" name="contrasena">
+            <input class="last_input" type="text" name="contrasena">
         </div>
 	</div>
 </div>
-<a id="btnLogin" class="boton_juga_ahora2"></a>
 
-	
+
 
 
 </body>

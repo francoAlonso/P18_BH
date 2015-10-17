@@ -1,0 +1,14 @@
+13-10-15
+
+**AGREGADO**
+-Carpeta "fonts" y las fuentes dentro (es una sola fuente con los diferentes formatos necesarios para los diferentes navegadores).
+Es la fuente que se usa en general en el diseño.
+
+**MODIFICADOS**
+*css
+-ecoTrivia.css
+
+*html
+-ecoTrivia_ingresar.html
+-ecoTrivia_iniciarSesion.html
+-ecoTrivia_ranking.html

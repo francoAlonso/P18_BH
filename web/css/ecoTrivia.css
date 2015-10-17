@@ -49,71 +49,21 @@ span {
 	height: 100%;
 	position: fixed;
 	background-size: 100%;
-	}	
-.boton_registrarse {
-	background-image:url(../imagenes/boton_registrate.png);
-	background-repeat:no-repeat;
-	top: 75%;
-	left: 30%;
-	width: 270px;
-	width: 17%;
-	height: 53px;
-	height: 10.5%;
-	position: absolute;
-	background-size: 100%;
-	background-position: center;
-	}
-	
-.carton_registro {
-	background-image:url(../imagenes/carton_registro.png);
-	background-repeat:no-repeat;
-	width: 100%;
-	height: 100%;
-	position: fixed;
-	background-size: 100%;
-	z-index: -1;
-	}		
-
+	}				
 .boton_juga_ahora2 {
 	background-image:url(../imagenes/boton_juga_ahora2.png);
 	background-repeat: no-repeat;
+	background-position: center;
+	bottom: 10%;
 	top: 65%;
 	left: 60%;
 	width: 234px;
-	width: 17%;
+	width: 20%;
 	height: 51px;
 	height: 10.5%;
 	position: absolute;
 	background-size: 100%;
-	background-position: center;
-	cursor: pointer;
-	}	
-	
-.boton_iniciar_sesion {
-	background-image:url(../imagenes/boton_iniciar_sesion.png);
-	background-repeat:no-repeat;
-	background-position: center;
-	top: 75%;
-	left: 50%;
-	width: 269px;
-	width: 17%;
-	height: 67px;
-	height: 10.5%;
-	position: absolute;
-	background-size: 100%;
-	}	
-
-.carton_registrarse_iniciarSesion {
-	background-image:url(../imagenes/carton_registrate_iniciar2.png);
-	background-repeat:no-repeat;
-	width: 80%;
-	height: 95%;
-	left: 10%;
-	position: absolute;
-	background-size: 100%;
-	z-index: -1;
-	}	
-	
+	}		
 .logo_eco_trivia_registro{
 	background-image:url(../imagenes/logo2.png);
 	background-repeat:no-repeat;
@@ -141,21 +91,6 @@ span {
 	background-image:url(../imagenes/boton_jugar.png);
 	background-repeat: no-repeat;
 	top: 22%;
-	left: 42%;
-	width: 177px;
-	width: 17%;
-	height: 118px;
-	height: 20.5%;
-	position: absolute;
-	background-size: 100%;
-	background-position: center;
-	z-index:1;
-	}	
-	
-.boton_perfil {
-	background-image:url(../imagenes/boton_perfil.png);
-	background-repeat: no-repeat;
-	top: 45%;
 	left: 42%;
 	width: 177px;
 	width: 17%;
@@ -225,20 +160,6 @@ span {
 	position: fixed;
 	background-size: 50%;
 	}*/
-
-.boton_volver {
-	background-image: url(../imagenes/boton_volver.png);
-	background-repeat: no-repeat;	
-	bottom: 0%;
-	left: 0%;
-	width: 108px;
-	width: 10%;
-	height: 75px;
-	height: 20.5%;
-	position: absolute;
-	background-size: 100%;
-	background-position: bottom left;
-	}
 	
 .boton_volver2 {
 	background-image: url(../imagenes/boton_volver2.png);
@@ -259,13 +180,13 @@ span {
 	background-image:url(../imagenes/arbol_miPerfil_3.png);
 	background-repeat:no-repeat;
 	background-position:left bottom;
-	background-size:100%;
+	background-size: auto 100%;
 	width: 100%;
 	height:100%;
 	position: fixed;
 	z-index:-1;
 	}	
-
+/*
 .ranking {
 	background-image: url(../imagenes/ranking.png);
 	background-repeat:no-repeat;
@@ -276,8 +197,8 @@ span {
 	position: fixed;
 	background-size: 30%;
 	}
-	
-.carton_ranking {
+	*/
+/*.carton_ranking {
 	background-image: url(../imagenes/cartones_ranking.png);
 	background-repeat:no-repeat;
 	background-position: top center;
@@ -287,7 +208,7 @@ span {
 	position: fixed;
 	background-size: 35%;
 	}
-	
+	*/
 .carton_juego {
 	background-image: url(../imagenes/carton_juego.png);
 	background-repeat:no-repeat;
@@ -302,48 +223,47 @@ span {
 	background-image: url(../imagenes/corazon.png);
 	background-repeat:no-repeat;
 	background-position: top center;
-	top: 130px;
-	right: 250px;
-	width: 100%;
-	height: 100%;
+	top: 22%;
+	width: 4%;
+	height: 8%;
 	position: fixed;
-	background-size: 4%;
+	background-size: 100%;
 	}	
 	
 .reloj1 {
 	background-image:url(../imagenes/reloj1.png);
 	background-repeat:no-repeat;
 	background-position: center top;
-	top: 130px;
-	left:230px;
-	width: 100%;
-	height: 100%;
+	top: 22%;
+	left: 70%;
+	width: 4%;
+	height: 8%;
 	position: fixed;
-	background-size: 4%;
+	background-size: 100% auto;
 	}	
 
 .reloj2 {
 	background-image:url(../imagenes/reloj2.png);	
 	background-repeat:no-repeat;
 	background-position: center top;
-	top: 130px;
-	left:230px;
-	width: 100%;
-	height: 100%;
+	top: 22%;
+	left: 70%;
+	width: 4%;
+	height: 8%;
 	position: fixed;
-	background-size: 4%;
+	background-size: 100% auto;
 	}	
 	
 .papel1 {
 	background-image:url(../imagenes/papel1.png);
 	background-repeat: no-repeat;
-	background-position: center center;
-	top: 29px;
-	left: -50px;
-	width: 100%;
-	height: 100%;
-	position: fixed;
-	background-size: 45%;
+	background-position: center;
+	top: 20%;
+	left: 24%;
+	width: 46%;
+	height: 70%;
+	position: absolute;
+	background-size: 100% auto;
 	z-index:2;
 	}	
 
@@ -351,12 +271,12 @@ span {
 	background-image:url(../imagenes/papel_verde.png);
 	background-repeat: no-repeat;
 	background-position: center center;
-	top: 29px;
-	left: -50px;
-	width: 100%;
-	height: 100%;
-	position: fixed;
-	background-size: 45%;
+	top: 20%;
+	left: 24%;
+	width: 46%;
+	height: 70%;
+	position: absolute;
+	background-size: 100% auto;
 	z-index:2;	
 	}	
 	
@@ -364,25 +284,24 @@ span {
 	background-image:url(../imagenes/papel_rojo.png);
 	background-repeat: no-repeat;
 	background-position: center center;
-	top: 29px;
-	left: -50px;
-	width: 100%;
-	height: 100%;
-	position: fixed;
-	background-size: 45%;
+	top: 20%;
+	left: 24%;
+	width: 46%;
+	height: 70%;
+	position: absolute;
+	background-size: 100% auto;
 	z-index:2;
 	}
 	
 .respuesta {
 	background-image:url(../imagenes/respuesta.png);
 	background-repeat: no-repeat;
-	background-position: center center;
-	top: 25px;
-	left: -60px;
-	width: 100%;
-	height: 100%;
-	position: fixed;
-	background-size: 25%;
+	background-position: center;
+	top: 4%;
+	width: 27%;
+	height: 10%;
+	position: absolute;
+	background-size: 100%;
 	z-index:2;
 	}	
 	
@@ -390,12 +309,12 @@ span {
 	background-image: url(../imagenes/pregunta.png);
 	background-repeat: no-repeat;
 	background-position: center center;
-	top: -45px;
-	left: 0px;
-	width: 100%;
-	height: 100%;
+	top: 35%;
+	left: 26%;
+	width: 45%;
+	height: 11%;
 	position: fixed;
-	background-size: 40%;
+	background-size: 100%;
 	z-index:2;
 	}	
 	
@@ -563,57 +482,11 @@ body {
 	background-size: 100%;
 	background-position: center;
 }
-.form_container {
-    position: absolute;
-    left: 62.5%;
-    top: 35%;
-}
-.form_container input {
-    display: block;
-    padding: 14px 12px;
-    width: 105%;
-    margin-bottom: 16%;
-    border: medium none;
-    outline: medium none;
-	background-image: url("../imagenes/EspacioParaDatos_registro.png");
-	background-color: transparent;
-	background-repeat: no-repeat;
-    /*background-color: transparent;*/
-}
 .form_container .first_input {
 	background-position: top center;
 }
 .form_container .last_input {
 	background-position: bottom center;
-}
-.form_container span {
-	font-family: "Berlin Sans FB";
-	display: block;
-	color: #FFF;
-	margin-left: -90%;
-	text-align: right;
-	float: left;
-	margin-top: 7%;
-	font-size: 1.2em;
-	/*font-weight: 600;*/
-}
-/*EJEMPLO DE CODIGO PARA CIERTAS RESOLUCIONES. EN ESTE CASO ABARCA TODAS LAS RESOLUCIONES DE HASTA UN MAXIMO DE 1024PX (MAX-WIDTH: 1024PX)*/
-@media screen and (max-width: 1024px) {
-	.logo_bh {
-		width: 13%;
-		height: 9%;
-	}
-	.logo_puerta18 {
-		width: 11.1%;
-		height: 9%;
-	}
-	.boton_registrarse {
-		top: 60%;
-	}
-	
-	.boton_iniciar_sesion {
-		top: 60%;
-	}
 }
 /*BATMAN CODE*/
 
@@ -628,19 +501,230 @@ body {
 	position: absolute;
 	top: 18%;
 	left: 37%;	
-}
-
-.texto_ranking {
-	font-size:36px;
-	}
-	
+}	
 .text_containter_miPerfil {
 	color: white;
 	position: absolute;
-	top: 25%;
-	left: 37%;
+	top: 27%;
+	left: 25%;
 	}	
 
 .texto_miPerfil {
-	font-size:xx-large;
+	font-size: 30px;
+	margin-bottom: 21%;
+	display: block;
 	}	
+
+.texto_miPerfil.right {
+	margin-left:10%
+	}
+/*12-10-2015*/
+
+
+@font-face {
+  font-family: "Berlin Sans FB";
+  src: url('../fonts/BerlinSansFBDemi-Bold.woff') format('woff'),
+       url('../fonts/BerlinSansFBDemi-Bold.ttf') format('truetype'),
+       url('../fonts/BerlinSansFBDemi-Bold.svg#BerlinSansFBDemi-Bold') format('svg');
+  src: url('../fonts/berlin-sans-fb-demi-bold.eot');
+  src: url('../fonts/berlin-sans-fb-demi-bold.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/berlin-sans-fb-demi-bold.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+.carton_registrarse_iniciarSesion {
+	background-image: url(../imagenes/carton_registrate_iniciar2.png);
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    /*max-height: 720px;*/
+    position: absolute;
+    background-size: auto 100%;
+    background-position: center;
+    z-index: -1;
+}
+.boton_iniciar_sesion {
+	background-image:url(../imagenes/boton_iniciar_sesion.png);
+	background-repeat:no-repeat;
+	background-position: center;
+	bottom: 10%;
+	left: 40%;
+	width: 269px;
+	width: 17%;
+	height: 67px;
+	height: 10.5%;
+	position: absolute;
+	background-size: 100%;
+}
+/*.boton_registrarse {
+	background-image:url(../imagenes/boton_registrate.png);
+	background-repeat:no-repeat;
+	bottom: 10%;
+	left: 30%;
+	width: 270px;
+	width: 17%;
+	height: 53px;
+	height: 10.5%;
+	position: absolute;
+	background-size: 100%;
+	background-position: center;
+}*/
+
+.carton_registro {
+	background-image:url(../imagenes/carton_registro.png);
+	background-repeat:no-repeat;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background-size: 100% auto;
+	background-position: center center;
+	z-index: -1;
+}
+.form_container {
+    position: absolute;
+    /*left: 62.5%;*/
+    right: 20%;
+    top: 35%;
+}
+.form_container span:first-child {
+    margin-top: 4%;
+}
+.form_container span {
+	font-family: "Berlin Sans FB";
+	display: inline-block;
+	color: #FFF;
+	/*margin-left: -90%;*/
+	text-align: right;
+	float: left;
+	margin-top: 10%;
+	font-size: 1.2em;
+	/*font-weight: 600;*/
+	width: 122px;
+	margin-left: -10%;
+	margin-bottom: 14%;
+}
+.form_container input {
+    display: inline-block;
+    padding: 5% 4%;
+    margin-bottom: 16%;
+    float: right;
+    border: medium none;
+    outline: medium none;
+	background-image: url("../imagenes/EspacioParaDatos_registro.png");
+	background-color: transparent;
+    /*background-color: transparent;*/
+}
+.boton_perfil {
+	background-image:url(../imagenes/boton_perfil.png);
+	background-repeat: no-repeat;
+	top: 45%;
+	left: 42%;
+	width: 177px;
+	width: 17%;
+	height: 118px;
+	height: 20.5%;
+	position: absolute;
+	background-size: auto 100%;
+	background-position: center;
+	z-index:1;
+}
+.carton_ranking {
+	background-image: url(../imagenes/cartones_ranking.png);
+	background-repeat: no-repeat;
+	background-position: top center;
+	top: 15%;
+	width: 30%;
+	height: 80%;
+	position: absolute;
+	background-size: 100%;
+	left: 35%;
+}
+.ranking {
+    background-image: url(../imagenes/ranking.png);
+    background-repeat: no-repeat;
+    background-position: top center;
+    top: 20px;
+    width: 25%;
+    height: 7%;
+    position: absolute;
+    background-size: 100%;
+    left: 37%;
+}
+.carton_ranking .textos {
+	margin: 13% 0 0 13%;
+}
+.texto_ranking {
+	font-size: 36px;
+	display: block;
+	margin-bottom: 7%;
+}
+.boton_volver {
+	background-image: url(../imagenes/boton_volver.png);
+	background-repeat: no-repeat;	
+	bottom: 5%;
+	left: 5%;
+	width: 108px;
+	width: 10%;
+	height: 75px;
+	height: 14.5%;
+	position: absolute;
+	background-size: 100%;
+	background-position: bottom left;
+}
+.text_container span {
+	font-family:"Berlin Sans FB";
+	display:inline-block;
+	font-size: large;
+	width: 100%;
+	text-align: center;
+	margin-top: 1%;
+	/*background-color: ;*/
+}
+/*FIX RESOLUCIONES*/
+@media screen and (max-width: 1920px) {
+	.texto_ranking {
+	    font-size: 36px;
+	}
+}
+@media screen and (max-width: 1680px) {
+	.texto_ranking {
+	    font-size: 30px;
+	}
+	.form_container span {
+		font-size: 1.4em;
+		width: 140px;
+		margin-left: -20%;
+	}
+	.form_container span:first-child {
+		margin-top: 6%;
+	}
+}
+@media screen and (max-width: 1440px) {
+	.texto_ranking {
+	    font-size: 27px;
+	}
+}
+@media screen and (max-width: 1280px) {
+	.texto_ranking {
+	    font-size: 25px;
+	}
+}
+@media screen and (max-width: 1024px) {
+	.logo_bh {
+		width: 13%;
+		height: 9%;
+	}
+	.logo_puerta18 {
+		width: 11.1%;
+		height: 9%;
+	}
+	.texto_ranking {
+	    font-size: 20px;
+	}
+}
+/*FIX RESOLUCIONES*/
+
+/*PARA HACER EL TIMER DE CUANDO SE ESTA RESPONDIENDO LAS PREGUNTAS*/
+/*		http://www.jqueryscript.net/demo/SVG-Based-Circular-Timer-Plugin-For-jQuery-Circle-Timer/		*/
+
+/*12-10-2015*/
