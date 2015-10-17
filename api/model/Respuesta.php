@@ -51,5 +51,19 @@ class Respuesta
 		return $statement->fetchAll();
 	}
 	//____________________________
+	
+	public static function ObtenerRespuestaCorrecta($ID_Pregunta, $pdo)
+	{
+		$params = array(':ID_Pregunta' => $ID_Pregunta);
+		$statement = $pdo->prepare('
+				SELECT *
+				FROM respuesta
+				WHERE Id_Pregunta = :ID_Pregunta
+				AND Correcta = 1
+				AND Habilitado = 1');
+		$statement->execute($params);
+		$statement->setFetchMode(PDO::FETCH_CLASS, 'Respuesta');
+		return $statement->fetch();
+	}
 }
 ?>

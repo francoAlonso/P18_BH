@@ -1,16 +1,16 @@
 <?php
 class Perfil_Usuario
 {
-	public $NombreUsuario;
-	public $PuntajeUsuario;
-	public $NombreGerencia;
-	public $PuntajeGerencia;
+	public $Nombre_Usuario;
+	public $Puntaje_Usuario;
+	public $Nombre_Gerencia;
+	public $Puntaje_Gerencia;
 	
 	public static function ObtenerPorUsuario($idUsuario, $pdo)
 	{
 		$params = array(':ID_Usuario' => $idUsuario);
 		$statement = $pdo->prepare('
-					SELECT U.Nombre AS Nombre_Usuario
+					SELECT U.Nombre_Completo AS Nombre_Usuario
 					    , ((U.Puntaje/G.Puntaje_Bruto)*G.Puntaje) AS Puntaje_Usuario
 					    , G.Nombre AS Nombre_Gerencia
 					    , G.Puntaje AS Puntaje_Gerencia
@@ -27,7 +27,7 @@ class Perfil_Usuario
 				');
 		$statement->execute($params);
 		$statement->setFetchMode(PDO::FETCH_CLASS, 'Perfil_Usuario');
-		return $statement->fetchAll();
+		return $statement->fetch();
 	}
 }
 ?>

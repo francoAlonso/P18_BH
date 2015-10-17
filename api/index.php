@@ -50,14 +50,13 @@ date_default_timezone_set('America/Argentina/Buenos_Aires');
 
 $app = new \Slim\Slim();
 $dbConfig = new DatabaseConfig();
-$pdo = new Database("mysql:host=" . $dbConfig->host . ";dbname=" . $dbConfig->dbname . ";charset=utf8", $dbConfig->username, $dbConfig->password,array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
+$pdo = new Database("mysql:host=" . $dbConfig->host . ";dbname=" . $dbConfig->dbname . ";charset=utf8", $dbConfig->username/*, $dbConfig->password,array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'")*/);
 
 $app->get('/partida/generar/:id', function($id) use ($app, $pdo){
 	try{
 		$pdo->beginTransaction();
 		$partida = PartidaController::CrearPartida($pdo,$id);
 		$pdo->commit();
-		//echo "a";
 		echo json_encode($partida, JSON_UNESCAPED_UNICODE | JSON_HEX_QUOT | JSON_HEX_TAG | JSON_PRETTY_PRINT);
 	}catch (Exception $ex){
 		$app->response->setStatus(500);
@@ -75,7 +74,7 @@ $app->get('/pregunta/responder/:id', function ($id) use ($app, $pdo){
 		$Partida_Respuesta = Partida_RespuestaController::AgregarPartidaRespuesta($generarPartida_Respuesta->ID_Respuesta, 
 																				$generarPartida_Respuesta->ID_Partida_Pregunta,
 																				$generarPartida_Respuesta->ID_Partida_Usuario, $pdo);
-		echo json_encode($Partida_Respuesta, JSON_UNESCAPED_UNICODE);
+		echo json_encode($Partida_Respuesta, JSON_UNESCAPED_UNICODE | JSON_HEX_QUOT | JSON_HEX_TAG | JSON_PRETTY_PRINT);
 	}catch(Exception $ex){
 		$app->response->setStatus(500);
 		echo $ex->getMessage();
@@ -95,7 +94,7 @@ $app->post('/partida/responder', function () use ($app, $pdo){
 		$resultado = PartidaController::ResponderPregunta($pdo, $ID_Usuario, $ID_Partida, $ID_Pregunta, $ID_Respuesta);		
 		
 		$pdo->commit();
-		echo json_encode(array("Resultado" => $resultado), JSON_UNESCAPED_UNICODE);
+		echo json_encode(array("Resultado" => $resultado), JSON_UNESCAPED_UNICODE | JSON_HEX_QUOT | JSON_HEX_TAG | JSON_PRETTY_PRINT);
 	}
 	catch (Exception $ex)
 	{
@@ -122,7 +121,7 @@ $app->get('/pregunta/:id',function($id) use ($app, $pdo){
 		if ($_pregunta == null || $_respuestas == null)
 			throw new Exception("ERROR, no se encontro la pregunta o las respuestas");
 		else
-			$response = json_encode(array("Pregunta" => $_pregunta, "Respuestas" => $_respuestas), JSON_UNESCAPED_UNICODE);
+			$response = json_encode(array("Pregunta" => $_pregunta, "Respuestas" => $_respuestas), JSON_UNESCAPED_UNICODE | JSON_HEX_QUOT | JSON_HEX_TAG | JSON_PRETTY_PRINT);
 		echo $response;
 	}
 	catch (Exception $ex)
@@ -146,7 +145,7 @@ $app->get('/usuario/:id', function ($id) use ($app, $pdo){
 $app->get('/usuario', function () use ($app, $pdo){
 	try{
 		$listaUsuario = UsuarioController::ObtenerTodos($pdo);
-		echo json_encode($listaUsuario);
+		echo json_encode($listaUsuario, JSON_UNESCAPED_UNICODE | JSON_HEX_QUOT | JSON_HEX_TAG | JSON_PRETTY_PRINT);
 	}
 	catch (Exception $ex)
 	{
@@ -159,7 +158,7 @@ $app->post('/usuario/agregar', function() use ($app, $pdo) {
 	{
 		$usuarioRecibido = json_decode($app->request->getBody());
 		$usuarioCreado = UsuarioController::CrearUsuario($usuarioRecibido->ID_Gerencia, $usuarioRecibido->ID_Sede, $usuarioRecibido->DNI, $usuarioRecibido->Nombre, $usuarioRecibido->Contrasena, $usuarioRecibido->Mail, $usuarioRecibido->Puntaje, $pdo);
-		echo json_encode($usuarioCreado, JSON_UNESCAPED_UNICODE);
+		echo json_encode($usuarioCreado, JSON_UNESCAPED_UNICODE, JSON_UNESCAPED_UNICODE | JSON_HEX_QUOT | JSON_HEX_TAG | JSON_PRETTY_PRINT);
 	}
 	catch (Exception $ex)
 	{
@@ -179,7 +178,7 @@ $app->post('/usuario/login', function() use ($app, $pdo) {
 			$respuesta = true;
 		}
 		
-		echo json_encode(array("Validado" => $respuesta, "Usuario" => $usuario), JSON_UNESCAPED_UNICODE);
+		echo json_encode(array("Validado" => $respuesta, "Usuario" => $usuario), JSON_UNESCAPED_UNICODE | JSON_HEX_QUOT | JSON_HEX_TAG | JSON_PRETTY_PRINT);
 	}
 	catch (Exception $ex)
 	{
@@ -195,7 +194,7 @@ $app->post('/usuario/cambiarContrasena', function () use ($app, $pdo)
 		$datosRecibidos = json_decode($app->request->getBody());
 		$return = UsuarioController::CambiarContrasena($datosRecibidos->ID_Usuario, $datosRecibidos->ContrasenaActual, $datosRecibidos->ContrasenaNueva, $pdo);
 	
-		echo json_encode($return, JSON_UNESCAPED_UNICODE);
+		echo json_encode($return, JSON_UNESCAPED_UNICODE | JSON_HEX_QUOT | JSON_HEX_TAG | JSON_PRETTY_PRINT);
 	}
 	catch (Exception $ex)
 	{
@@ -219,7 +218,7 @@ $app->get('/gerencias/puntajes', function () use ($app, $pdo)
 $app->get('/perfil/:id', function ($id) use ($app, $pdo){
 	try{
 		$array = Perfil_Usuario::ObtenerPorUsuario($id, $pdo);
-		echo json_encode($array, JSON_UNESCAPED_UNICODE);
+		echo json_encode($array, JSON_UNESCAPED_UNICODE | JSON_HEX_QUOT | JSON_HEX_TAG | JSON_PRETTY_PRINT);
 	}
 	catch (Exception $ex)
 	{

@@ -46,9 +46,10 @@ Class PartidaController
 		$partidaRespuesta = Partida_RespuestaController::AgregarPartidaRespuesta($ID_Respuesta, $partidaPregunta->ID, $partidaUsuario->ID, $pdo);
 		$respuesta = RespuestaController::ObtenerPorId($ID_Respuesta, $pdo);
 		
+		$respuestaCorrecta = RespuestaController::ObtenerCorrectaPorPregunta($ID_Pregunta, $pdo);
 		$partidaUsuarioActualFinalizada = PartidaController::PartidaUsuarioActualFinalizada($ID_Partida, $ID_Usuario, $partidaUsuario, $partidaPregunta, $partidaRespuesta, $respuesta, $pdo);
 		
-		$arrayRespuesta = ['Respuesta_Correcta' => $respuesta->EsCorrecta(), 'Partida_Finalizada' => $partidaUsuarioActualFinalizada];
+		$arrayRespuesta = ['Correcta' => $respuesta->EsCorrecta(), 'Partida_Finalizada' => $partidaUsuarioActualFinalizada, 'Respuesta_Correcta' => $respuestaCorrecta];
 		return $arrayRespuesta;
 	}
 	

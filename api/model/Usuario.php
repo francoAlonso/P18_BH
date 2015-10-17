@@ -14,6 +14,7 @@ class Usuario
 	public $ID_Sede;
 	public $DNI;
 	public $Nombre;
+	public $Nombre_Completo;
 	private $Contrasena;
 	private $Mail;
 	public $Puntaje;

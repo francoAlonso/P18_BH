@@ -10,5 +10,11 @@ class RespuestaController{
 		$respuesta = Respuesta::ObtenerPorId($ID_Respuesta, $pdo);
 		return $respuesta;
 	}
+	
+	public static function ObtenerCorrectaPorPregunta($ID_Pregunta, $pdo)
+	{
+		$respuesta = Respuesta::ObtenerRespuestaCorrecta($ID_Pregunta, $pdo);
+		return $respuesta;
+	}
 }
 ?>
