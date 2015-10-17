@@ -61,7 +61,7 @@ class Usuario
 		$params = array();
 		$statement = $pdo->prepare('
 				SELECT *
-				FROM Usuario
+				FROM usuario
 				WHERE Habilitado = 1
 				');
 		$statement->execute($params);
@@ -73,7 +73,7 @@ class Usuario
 		$params = array(':ID' => $id);
 		$statement = $pdo->prepare('
 				SELECT *
-				FROM Usuario
+				FROM usuario
 				WHERE ID = :ID
 				AND Habilitado = 1
 				LIMIT 0,1');
@@ -88,7 +88,7 @@ class Usuario
 						':Contrasena' => $contrasena, ':Mail' => $mail, ':Puntaje' => $puntaje, ':Habilitado' => true,
 						':ContrasenaNueva' => null, ':CodigoVerificacion' => null);
 		$statement = $pdo->prepare('
-				INSERT INTO Usuario (ID_Gerencia, ID_Sede, DNI, Nombre, Contrasena, Mail, Puntaje, Habilitado, ContrasenaNueva, CodigoVerificacion)
+				INSERT INTO usuario (ID_Gerencia, ID_Sede, DNI, Nombre, Contrasena, Mail, Puntaje, Habilitado, ContrasenaNueva, CodigoVerificacion)
 				VALUES (:ID_Gerencia, :ID_Sede, :DNI, :Nombre, :Contrasena, :Mail, :Puntaje, :Habilitado, :ContrasenaNueva, :CodigoVerificacion)
 				');
 		$statement->execute($params);
@@ -102,7 +102,7 @@ class Usuario
 		$params = array(':Nombre' => $nombre, ':Contrasena' => $contrasena);
 		$statement = $pdo->prepare('
 				SELECT *
-				FROM Usuario
+				FROM usuario
 				WHERE Nombre = :Nombre
 				AND Contrasena = :Contrasena
 				AND Habilitado = 1
@@ -117,7 +117,7 @@ class Usuario
 		$pdo->beginTransaction();
 		$params = array(':ID_Usuario' => $ID_Usuario, ':Puntaje' => $puntaje);
 		$statement = $pdo->prepare('
-				UPDATE Usuario
+				UPDATE usuario
 				SET Puntaje = :Puntaje
 				WHERE ID = :ID_Usuario
 				');
@@ -132,7 +132,7 @@ class Usuario
 		$pdo->beginTransaction();
 		$params = array(':ID' => $idUsuario, ':ContrasenaNueva' => $contrasenaNueva);
 		$statement = $pdo->prepare('
-				UPDATE Usuario
+				UPDATE usuario
 				SET ContrasenaNueva = :ContrasenaNueva, CodigoVerificacion = UUID()
 				WHERE ID = :ID');
 		$statement->execute($params);
@@ -146,7 +146,7 @@ class Usuario
 		$pdo->beginTransaction();
 		$params = array(':CodigoVerificador' => $codigoVerificador);
 		$statement = $pdo->prepare('
-				UPDATE Usuario
+				UPDATE usuario
 				SET Contrasena = ContrasenaNueva,
 					ContrasenaNueva = NULL,
 					CodigoVerificacion = NULL

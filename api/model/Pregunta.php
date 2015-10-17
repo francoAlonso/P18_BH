@@ -11,7 +11,7 @@ class Pregunta
 		$params = array();
 		$statement = $pdo->prepare('
 				SELECT *
-				FROM Pregunta
+				FROM pregunta
 				WHERE Habilitado = 1
 				');
 		$statement->execute($params);
@@ -23,7 +23,7 @@ class Pregunta
 		$params = array(':ID' => $id);
 		$statement = $pdo->prepare('
 				SELECT *
-				FROM Pregunta
+				FROM pregunta
 				WHERE ID = :ID
 				AND Habilitado = 1
 				LIMIT 0,1');
@@ -33,14 +33,14 @@ class Pregunta
 	}
 	public static function ObtenerPreguntaRandom($pdo)
 	{
-		$statement = $pdo->prepare('SELECT * FROM Pregunta ORDER BY RAND() LIMIT 0,1;');
+		$statement = $pdo->prepare('SELECT * FROM pregunta ORDER BY RAND() LIMIT 0,1;');
 		$statement->execute();
 		$statement->setFetchMode(PDO::FETCH_CLASS, 'Pregunta');
 		return $statement->fetch();
 	}
 	public static function ObtenerPreguntasRandom($pdo, $cantidad)
 	{
-		$statement = $pdo->prepare('SELECT * FROM Pregunta ORDER BY RAND() LIMIT 0,' . intval($cantidad));
+		$statement = $pdo->prepare('SELECT * FROM pregunta ORDER BY RAND() LIMIT 0,' . intval($cantidad));
 		$statement->execute();
 		$statement->setFetchMode(PDO::FETCH_CLASS, 'Pregunta');
 		return $statement->fetchAll();
@@ -49,8 +49,8 @@ class Pregunta
 	{
 		$params = array(':ID_Partida' => $ID_Partida);
 		$statement = $pdo->prepare('
-				SELECT * FROM Pregunta Pr
-				INNER JOIN Partida_Pregunta PP ON PP.ID_Pregunta = Pr.ID
+				SELECT * FROM pregunta Pr
+				INNER JOIN partida_pregunta PP ON PP.ID_Pregunta = Pr.ID
 				WHERE PP.ID_Partida = ' . intval($ID_Partida));
 		$statement->execute();
 		$statement->setFetchMode(PDO::FETCH_CLASS, 'Pregunta');
@@ -60,8 +60,8 @@ class Pregunta
 	{
 		$params = array(':ID_Partida' => $ID_Partida, ':ID_Pregunta' => $ID_Pregunta);
 		$statement = $pdo->prepare('
-				SELECT * FROM Pregunta Pr
-				LEFT JOIN Partida_Pregunta PP ON PP.ID_Pregunta = Pr.ID
+				SELECT * FROM pregunta Pr
+				LEFT JOIN partida_pregunta PP ON PP.ID_Pregunta = Pr.ID
 				WHERE PP.ID_Partida = :ID_Partida AND PP.ID_Pregunta = :ID_Pregunta');
 		$statement->execute($params);
 		$statement->setFetchMode(PDO::FETCH_CLASS, 'Pregunta');

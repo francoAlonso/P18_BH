@@ -13,7 +13,7 @@ class Partida
 		$params = array();
 		$statement = $pdo->prepare('
 				SELECT *
-				FROM Partida
+				FROM partida
 				WHERE Habilitado = 1
 				');
 		$statement->execute($params);
@@ -25,7 +25,7 @@ class Partida
 		$params = array(':ID' => $id);
 		$statement = $pdo->prepare('
 				SELECT *
-				FROM Partida
+				FROM partida
 				WHERE ID = :ID
 				AND Habilitado = 1
 				LIMIT 0,1');
@@ -37,7 +37,7 @@ class Partida
 		$pdo->beginTransaction();
 		$now = new DateTime();
 		$params = array(':Habilitado' => 1, ':Fecha_Inicio' => $now->format('Y-m-d H:i:s'), ':Fecha_Fin' => null, ':Cantidad_Usuario' => 2, ':Cantidad_Preguntas' => 10);
-		$statement = $pdo->prepare('INSERT INTO Partida (Habilitado, Fecha_Inicio, Fecha_Fin, Cantidad_Usuario, Cantidad_Preguntas)
+		$statement = $pdo->prepare('INSERT INTO partida (Habilitado, Fecha_Inicio, Fecha_Fin, Cantidad_Usuario, Cantidad_Preguntas)
 									VALUES (:Habilitado, :Fecha_Inicio, :Fecha_Fin, :Cantidad_Usuario, :Cantidad_Preguntas)');
 		$statement->execute($params);
 		$idPartida = $pdo->lastInsertId();
@@ -48,9 +48,9 @@ class Partida
 	public static function ObtenerPartidaDisponible($pdo, $ID_Usuario){
 		// Agregado el parámetro $ID_Usuario para que no tome como partida válida una iniciada por el mismo usuario.
 		$params = array(':ID_Usuario' => $ID_Usuario);
-		$statement = $pdo->prepare('SELECT * FROM Partida 
+		$statement = $pdo->prepare('SELECT * FROM partida 
 									WHERE Habilitado = 1
-									AND ID NOT IN (SELECT ID_Partida FROM Partida_Usuario WHERE ID_Usuario = :ID_Usuario)
+									AND ID NOT IN (SELECT ID_Partida FROM partida_usuario WHERE ID_Usuario = :ID_Usuario)
 									ORDER BY RAND() LIMIT 0,1;');
 		$statement->execute($params);
 		$statement->setFetchMode(PDO::FETCH_CLASS, 'Partida');
@@ -59,7 +59,7 @@ class Partida
 	public static function DeshabilitarPartida($pdo, $ID_Partida)
 	{
 		$params = array(':ID' => $ID_Partida);
-		$statement = $pdo->prepare('UPDATE Partida
+		$statement = $pdo->prepare('UPDATE partida
 									SET Habilitado = 0
 									WHERE ID = :ID');
 		$statement->execute($params);
@@ -70,10 +70,10 @@ class Partida
 	{
 		$params = array(':ID_Partida' => $ID_Partida, ':ID_Usuario' => $ID_Usuario);
 		$statement = $pdo->prepare('SELECT COUNT(*)
-										FROM Partida P
-										LEFT JOIN Partida_Usuario PU ON P.ID = PU.ID_Partida
-										LEFT JOIN Partida_Pregunta PP ON P.ID = PP.ID_Partida
-										LEFT JOIN Partida_Respuesta PR 	ON PU.ID = PR.ID_Partida_Usuario
+										FROM partida P
+										LEFT JOIN partida_usuario PU ON P.ID = PU.ID_Partida
+										LEFT JOIN partida_pregunta PP ON P.ID = PP.ID_Partida
+										LEFT JOIN partida_respuesta PR 	ON PU.ID = PR.ID_Partida_Usuario
 																		AND PP.ID = PR.ID_Partida_Pregunta
 										WHERE (PR.ID IS NULL)
 											AND PU.ID_Usuario = :ID_Usuario
@@ -86,8 +86,8 @@ class Partida
 	{
 		$params = array(':ID_Partida' => $ID_Partida);
 		$statement = $pdo->prepare('SELECT COUNT(*)
-										FROM Partida P
-										LEFT JOIN Partida_Usuario PU ON P.ID = PU.ID_Partida
+										FROM partida P
+										LEFT JOIN partida_usuario PU ON P.ID = PU.ID_Partida
 										WHERE (PU.Fecha_Fin IS NULL)
 											AND P.ID = :ID_Partida');
 		$statement->execute($params);
@@ -99,7 +99,7 @@ class Partida
 		$pdo->beginTransaction();
 		$now = new DateTime();
 		$params = array(':ID' => $ID_Partida, ':Fecha_Fin'=>$now->format('Y-m-d H:i:s'));
-		$statement = $pdo->prepare('UPDATE Partida
+		$statement = $pdo->prepare('UPDATE partida
 									SET Fecha_Fin = :Fecha_Fin
 									WHERE ID = :ID');
 		$statement->execute($params);

@@ -20,7 +20,7 @@ class Respuesta
 		$params = array();
 		$statement = $pdo->prepare('
 				SELECT *
-				FROM Respuesta
+				FROM respuesta
 				WHERE Habilitado = 1
 				');
 		$statement->execute($params);
@@ -32,7 +32,7 @@ class Respuesta
 		$params = array(':ID' => $id);
 		$statement = $pdo->prepare('
 				SELECT *
-				FROM Respuesta
+				FROM respuesta
 				WHERE ID = :ID
 				AND Habilitado = 1
 				LIMIT 0,1');
@@ -43,7 +43,7 @@ class Respuesta
 	//____________________________
 	public static function ObtenerRespuestas($ID_Pregunta,$pdo){
 		$params = array(':Pregunta_ID'=>$ID_Pregunta);
-		$statement = $pdo->prepare('SELECT * FROM Respuesta
+		$statement = $pdo->prepare('SELECT * FROM respuesta
 			WHERE ID_Pregunta = :Pregunta_ID 
 			AND Habilitado = 1');
 		$statement->execute($params);

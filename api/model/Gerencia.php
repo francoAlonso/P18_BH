@@ -11,7 +11,7 @@ class Gerencia
 		$params = array();
 		$statement = $pdo->prepare('
 				SELECT *
-				FROM Gerencia
+				FROM gerencia
 				WHERE Habilitado = 1
 				');
 		$statement->execute($params);
@@ -23,7 +23,7 @@ class Gerencia
 		$params = array(':ID' => $id);
 		$statement = $pdo->prepare('
 				SELECT *
-				FROM Gerencia
+				FROM gerencia
 				WHERE ID = :ID
 				AND Habilitado = 1
 				LIMIT 0,1');

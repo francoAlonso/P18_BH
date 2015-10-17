@@ -12,7 +12,7 @@ class Partida_Usuario
 		$params = array();
 		$statement = $pdo->prepare('
 				SELECT *
-				FROM Partida_Usuario
+				FROM partida_usuario
 				');
 		$statement->execute($params);
 		$statement->setFetchMode(PDO::FETCH_CLASS, 'Partida_Usuario');
@@ -23,7 +23,7 @@ class Partida_Usuario
 		$params = array(':ID' => $id);
 		$statement = $pdo->prepare('
 				SELECT *
-				FROM Partida_Usuario
+				FROM partida_usuario
 				WHERE ID = :ID
 				LIMIT 0,1');
 		$statement->execute($params);
@@ -36,7 +36,7 @@ class Partida_Usuario
 		$now = new DateTime(); // Fecha de cuando el usuario inicia la partida, no la fecha de inicio de la partida
 		// Las variables $ID_Partida y $ID_Usuario no son los objetos de partida o de usuario. Son solamente los id (variables numéricas),
 		$params = array(':ID_Partida' => $ID_Partida, ':ID_Usuario'=> $ID_Usuario, ':Fecha_Inicio'=> $now->format('Y-m-d H:i:s'), ':Fecha_Fin'=>null);
-		$statement = $pdo->prepare('INSERT INTO Partida_Usuario(ID_Partida, ID_Usuario, Fecha_Inicio, Fecha_Fin)
+		$statement = $pdo->prepare('INSERT INTO partida_usuario(ID_Partida, ID_Usuario, Fecha_Inicio, Fecha_Fin)
 									VALUES (:ID_Partida, :ID_Usuario, :Fecha_Inicio, :Fecha_Fin)');
 		$statement->execute($params);
 		$idPartidaUsuario = $pdo->lastInsertId();
@@ -49,7 +49,7 @@ class Partida_Usuario
 		$params = array(':ID_Partida' => $ID_Partida, ':ID_Usuario' => $ID_Usuario);
 		$statement = $pdo->prepare('
 				SELECT *
-				FROM Partida_Usuario
+				FROM partida_usuario
 				WHERE ID_Usuario = :ID_Usuario AND ID_Partida = :ID_Partida
 				LIMIT 0,1');
 		$statement->execute($params);
@@ -61,7 +61,7 @@ class Partida_Usuario
 		$pdo->beginTransaction();
 		$now = new DateTime();
 		$params = array(':ID' => $ID_Partida_Usuario, ':Fecha_Fin'=>$now->format('Y-m-d H:i:s'));
-		$statement = $pdo->prepare('UPDATE Partida_Usuario
+		$statement = $pdo->prepare('UPDATE partida_usuario
 									SET Fecha_Fin = :Fecha_Fin
 									WHERE ID = :ID');
 		$statement->execute($params);

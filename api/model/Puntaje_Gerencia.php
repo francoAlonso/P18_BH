@@ -15,8 +15,8 @@ class Puntaje_Gerencia
 					, SUM((100-(COUNT(U.ID)/(SELECT COUNT(ID) FROM Usuario)*100))*(SUM(U.Puntaje))) AS Puntaje2*/
 				    , ((100-(COUNT(U.ID) / (SELECT COUNT(ID) FROM Usuario)*100)) * SUM(U.Puntaje)) AS Puntaje
 				    /*, (100-(COUNT(U.ID) / (SELECT COUNT(ID) FROM Usuario)*100)) AS PorcentualUsuarios*/
-				FROM Gerencia G
-				LEFT JOIN Usuario U ON G.ID = U.ID_Gerencia
+				FROM gerencia G
+				LEFT JOIN gsuario U ON G.ID = U.ID_Gerencia
 				GROUP BY G.ID, G.Nombre
 				ORDER BY Puntaje DESC
 				');

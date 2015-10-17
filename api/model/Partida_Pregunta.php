@@ -10,7 +10,7 @@ class Partida_Pregunta
 		$params = array();
 		$statement = $pdo->prepare('
 				SELECT *
-				FROM Partida_Pregunta
+				FROM partida_pregunta
 				');
 		$statement->execute($params);
 		$statement->setFetchMode(PDO::FETCH_CLASS, 'Partida_Pregunta');
@@ -21,7 +21,7 @@ class Partida_Pregunta
 		$params = array(':ID' => $id);
 		$statement = $pdo->prepare('
 				SELECT *
-				FROM Partida_Pregunta
+				FROM partida_pregunta
 				WHERE ID = :ID
 				LIMIT 0,1');
 		$statement->execute($params);
@@ -33,7 +33,7 @@ class Partida_Pregunta
 		$params = array(':ID_Partida' => $ID_Partida);
 		$statement = $pdo->prepare('
 				SELECT *
-				FROM Partida_Pregunta
+				FROM partida_pregunta
 				WHERE ID_Partida = :ID_Partida');
 		$statement->execute($params);
 		$statement->setFetchMode(PDO::FETCH_CLASS, 'Partida_Pregunta');
@@ -45,7 +45,7 @@ class Partida_Pregunta
 		$params = array(':ID_Partida' => $ID_Partida, ':ID_Pregunta' => $ID_Pregunta);
 		$statement = $pdo->prepare('
 				SELECT *
-				FROM Partida_Pregunta
+				FROM partida_pregunta
 				WHERE ID_Partida = :ID_Partida AND Id_Pregunta = :ID_Pregunta
 				LIMIT 0,1');
 		$statement->execute($params);
@@ -58,7 +58,7 @@ class Partida_Pregunta
 		$pdo->beginTransaction();
 		$params = array(':ID_Partida' => $ID_Partida, ':ID_Pregunta' => $ID_Pregunta);
 		$statement = $pdo->prepare('
-				INSERT INTO Partida_Pregunta (ID_Partida, ID_Pregunta)
+				INSERT INTO partida_pregunta (ID_Partida, ID_Pregunta)
 				VALUES (:ID_Partida, :ID_Pregunta)');
 		$statement->execute($params);
 		$idPartidaPregunta = $pdo->lastInsertId();
