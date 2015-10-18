@@ -111,7 +111,7 @@ class UsuarioController
 			//Read an HTML message body from an external file, convert referenced images to embedded,
 			//convert HTML into a basic plain-text alternative body
 			//$mail->msgHTML(file_get_contents('contents.html'), dirname(__FILE__));
-			$mail->msgHTML('Para aceptar el cambio de su contraseña, ingrese a la siguiente página web: http://p18bh.ml/api/confirmarCambioContrasena?token=' . urlencode($usuario->ObtenerCodigoVerificacion()));
+			$mail->msgHTML('Para aceptar el cambio de su contraseña, ingrese a la siguiente página web: http://p18bh.ml/api/confirmarCambioContrasena.php?token=' . urlencode($usuario->ObtenerCodigoVerificacion()));
 			//Replace the plain text body with one created manually
 			//$mail->AltBody = 'This is a plain-text message body';
 			
@@ -121,14 +121,14 @@ class UsuarioController
 			//send the message, check for errors
 			if (!$mail->send()) {
 				//echo "Mailer Error: " . $mail->ErrorInfo;
-				throw new Exception("No se pudo enviar mail de cambio de contraseña. La contraseña no ser{a cambiada. Reintente más tarde.");
+				return array("EstadoBool" => false, "Estado" => "Error", "Descripcion" => "No se pudo enviar mail de cambio de contraseña. La contraseña no será cambiada. Reintente más tarde.");
 			} else {
 				//echo "Message sent!";
 			}
-			return array("Estado" => "Ok", "Descripcion" => "Se le envió un mail a " . $usuario->ObtenerMail() . " para que confirme su cambio de contraseña.");
+			return array("EstadoBool" => true, "Estado" => "Ok", "Descripcion" => "Se le envió un mail a " . $usuario->ObtenerMail() . " para que confirme su cambio de contraseña.");
 		}
 		else
-			return array("Estado" => "Error", "Descripcion" => "La contraseña actual es incorrecta.");
+			return array("EstadoBool" => false, "Estado" => "Error", "Descripcion" => "La contraseña actual es incorrecta.");
 	}
 	
 	public static function ConfirmarCambioContrasena($codigoConfirmacion, $pdo)

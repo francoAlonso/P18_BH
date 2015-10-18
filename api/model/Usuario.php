@@ -90,7 +90,7 @@ class Usuario
 						':ContrasenaNueva' => null, ':CodigoVerificacion' => null);
 		$statement = $pdo->prepare('
 				INSERT INTO usuario (ID_Gerencia, ID_Sede, DNI, Nombre, Contrasena, Mail, Puntaje, Habilitado, ContrasenaNueva, CodigoVerificacion)
-				VALUES (:ID_Gerencia, :ID_Sede, :DNI, :Nombre, :Contrasena, :Mail, :Puntaje, :Habilitado, :ContrasenaNueva, :CodigoVerificacion)
+				VALUES (:ID_Gerencia, :ID_Sede, :DNI, :Nombre, sha2(:Contrasena, 256), :Mail, :Puntaje, :Habilitado, sha2(:ContrasenaNueva, 256), :CodigoVerificacion)
 				');
 		$statement->execute($params);
 		$idUsuario = $pdo->lastInsertId();
@@ -105,7 +105,7 @@ class Usuario
 				SELECT *
 				FROM usuario
 				WHERE Nombre = :Nombre
-				AND Contrasena = :Contrasena
+				AND Contrasena = sha2(:Contrasena, 256)
 				AND Habilitado = 1
 				LIMIT 0,1');
 		$statement->execute($params);
@@ -134,7 +134,7 @@ class Usuario
 		$params = array(':ID' => $idUsuario, ':ContrasenaNueva' => $contrasenaNueva);
 		$statement = $pdo->prepare('
 				UPDATE usuario
-				SET ContrasenaNueva = :ContrasenaNueva, CodigoVerificacion = UUID()
+				SET ContrasenaNueva = sha2(:ContrasenaNueva, 256), CodigoVerificacion = UUID()
 				WHERE ID = :ID');
 		$statement->execute($params);
 		$usuario = Usuario::ObtenerPorId($idUsuario, $pdo);
