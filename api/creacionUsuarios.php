@@ -2754,11 +2754,12 @@ $dbConfig = new DatabaseConfig();
 $pdo = new Database("mysql:host=" . $dbConfig->host . ";dbname=" . $dbConfig->dbname . ";charset=utf8", $dbConfig->username, $dbConfig->password,array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
 
 // Comentar por si alguien ingresa por error
-/*$sql = "TRUNCATE partida_respuesta;
+$sql = "TRUNCATE partida_respuesta;
 		TRUNCATE partida_pregunta;
 		TRUNCATE partida_usuario;
-		TRUNCATE partida";*/
-$sql = "UPDATE usuario SET Contrasena = sha2(Contrasena, 256)";
+		TRUNCATE partida;
+		UPDATE usuario SET Puntaje = 0;";
+//$sql = "UPDATE usuario SET Contrasena = sha2(Contrasena, 256)";
 try
 {
 	$pdo->beginTransaction();

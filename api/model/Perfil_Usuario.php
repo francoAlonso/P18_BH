@@ -11,13 +11,13 @@ class Perfil_Usuario
 		$params = array(':ID_Usuario' => $idUsuario);
 		$statement = $pdo->prepare('
 					SELECT U.Nombre_Completo AS Nombre_Usuario
-					    , ((U.Puntaje/G.Puntaje_Bruto)*G.Puntaje) AS Puntaje_Usuario
+					    , COALESCE(((U.Puntaje/G.Puntaje_Bruto)*G.Puntaje),0) AS Puntaje_Usuario
 					    , G.Nombre AS Nombre_Gerencia
 					    , G.Puntaje AS Puntaje_Gerencia
 					FROM usuario U
 					LEFT JOIN (SELECT G.ID
 							, G.Nombre
-							, ((100-(COUNT(U.ID) / (SELECT COUNT(ID) FROM usuario)*100)) * SUM(U.Puntaje)) AS Puntaje
+							, COALESCE(((100-(COUNT(U.ID) / (SELECT COUNT(ID) FROM usuario)*100)) * SUM(U.Puntaje)),0) AS Puntaje
 					        , SUM(U.Puntaje) AS Puntaje_Bruto
 						FROM gerencia G
 						LEFT JOIN usuario U ON G.ID = U.ID_Gerencia
