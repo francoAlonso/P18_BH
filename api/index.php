@@ -50,7 +50,7 @@ date_default_timezone_set('America/Argentina/Buenos_Aires');
 
 $app = new \Slim\Slim();
 $dbConfig = new DatabaseConfig();
-$pdo = new Database("mysql:host=" . $dbConfig->host . ";dbname=" . $dbConfig->dbname . ";charset=utf8", $dbConfig->username/*, $dbConfig->password,array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'")*/);
+$pdo = new Database("mysql:host=" . $dbConfig->host . ";dbname=" . $dbConfig->dbname . ";charset=utf8", $dbConfig->username, $dbConfig->password,array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
 
 $app->get('/partida/generar/:id', function($id) use ($app, $pdo){
 	try{
@@ -226,6 +226,16 @@ $app->get('/perfil/:id', function ($id) use ($app, $pdo){
 		echo $ex->getMessage();
 	}
 });
-
+$app->get('/partida/sinFinalizar/:id', function ($id) use ($app, $pdo)
+{
+	$var = Partida::CantidadUsuariosFinalizados($id, $pdo);
+	var_dump($var);
+	var_dump(intval($var[0]));
+});
+$app->get('/partida/puntajes/:id', function ($id) use ($app, $pdo)
+{
+	$var = Puntaje_Partida_Usuario::ObtenerPorPartida($id, $pdo);
+	var_dump($var);
+});
 $app->run();
 ?>

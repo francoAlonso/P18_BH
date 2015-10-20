@@ -73,7 +73,15 @@ Class PartidaController
 			
 			/*$partida = Partida::ObtenerPorId($ID_Partida, $pdo);
 			$cantidadUsuariosPartida = $partida->Cantidad_Usuario;*/
-			$cantidadNoFinalizada = Partida::CantidadUsuariosNoFinalizados($ID_Partida, $pdo);
+			$cantidadFinalizada = 0;
+			$cantidadFinalizadaDb = Partida::CantidadUsuariosFinalizados($ID_Partida, $pdo);
+			if (is_array($cantidadFinalizadaDb))
+				$cantidadFinalizada = intval($cantidadFinalizadaDb[0]);
+			else 
+				$cantidadFinalizada = intval($cantidadFinalizadaDb);
+			
+			$partida = Partida::ObtenerPorId($ID_Partida, $pdo);
+			$cantidadNoFinalizada = intval($partida->Cantidad_Usuario) - $cantidadFinalizada;
 			if ($cantidadNoFinalizada > 0)
 				$finalizarPartida = false;
 			else
@@ -81,7 +89,6 @@ Class PartidaController
 		}
 		if ($finalizarPartida == true)
 			PartidaController::FinalizarPartida($ID_Partida, $pdo);
-		
 		return $finalizarPartidaUsuario;
 	}
 	
@@ -97,9 +104,8 @@ Class PartidaController
 		$diferenciaPuntaje = $puntajeGanador->Puntaje_Partida - $puntajePerdedor->Puntaje_Partida;
 		$puntajeGanadorFinal = $puntajeGanador->Puntaje_Partida + $diferenciaPuntaje;
 		$puntajePerdedorFinal = $puntajePerdedor->PuntajePartida - $diferenciaPuntaje;
-		
-		$usuarioGanador = UsuarioController::ActualizarPuntaje($puntajeGanador->ID_Usuairo, $puntajeGanadorFinal, $pdo);
-		$usuarioPerdedor = UsuarioController::ActualizarPuntaje($puntajePerdedorFinal->ID_Usuario, $puntajePerdedorFinal, $pdo);		
+		$usuarioGanador = UsuarioController::ActualizarPuntaje($puntajeGanador->ID_Usuario, $puntajeGanadorFinal, $pdo);
+		$usuarioPerdedor = UsuarioController::ActualizarPuntaje($puntajePerdedor->ID_Usuario, $puntajePerdedorFinal, $pdo);		
 		
 	}
 }

@@ -82,13 +82,13 @@ class Partida
 		$cantidad = $statement->fetch(PDO::FETCH_NUM);
 		return $cantidad;
 	}
-	public static function CantidadUsuariosNoFinalizados($ID_Partida, $pdo)
+	public static function CantidadUsuariosFinalizados($ID_Partida, $pdo)
 	{
 		$params = array(':ID_Partida' => $ID_Partida);
 		$statement = $pdo->prepare('SELECT COUNT(*)
 										FROM partida P
 										LEFT JOIN partida_usuario PU ON P.ID = PU.ID_Partida
-										WHERE (PU.Fecha_Fin IS NULL)
+										WHERE (PU.Fecha_Fin IS NOT NULL)
 											AND P.ID = :ID_Partida');
 		$statement->execute($params);
 		$cantidad = $statement->fetch(PDO::FETCH_NUM);
