@@ -662,7 +662,7 @@ body {
 	background-image: url(../imagenes/boton_volver.png);
 	background-repeat: no-repeat;	
 	bottom: 5%;
-	left: 5%;
+	right: 15%;
 	width: 108px;
 	width: 10%;
 	height: 75px;
