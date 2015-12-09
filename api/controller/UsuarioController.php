@@ -111,7 +111,7 @@ class UsuarioController
 			//Read an HTML message body from an external file, convert referenced images to embedded,
 			//convert HTML into a basic plain-text alternative body
 			//$mail->msgHTML(file_get_contents('contents.html'), dirname(__FILE__));
-			$mail->msgHTML('Para aceptar el cambio de su contraseña, ingrese a la siguiente página web: http://p18bh.ml/api/confirmarCambioContrasena.php?token=' . urlencode($usuario->ObtenerCodigoVerificacion()));
+			$mail->msgHTML('Para aceptar el cambio de su contraseña, ingrese a la siguiente página web: http://ecotrivia.tk/api/confirmarCambioContrasena.php?token=' . urlencode($usuario->ObtenerCodigoVerificacion()));
 			//Replace the plain text body with one created manually
 			//$mail->AltBody = 'This is a plain-text message body';
 			

@@ -8,6 +8,6 @@ $pdo = new Database("mysql:host=" . $dbConfig->host . ";dbname=" . $dbConfig->db
 
 $codigoVerificador = urldecode($_GET["token"]);
 UsuarioController::ConfirmarCambioContrasena($codigoVerificador, $pdo);
-header("Location: http://p18bh.ml/");
+header("Location: http://ecotrivia.tk/");
 die;
 ?>
