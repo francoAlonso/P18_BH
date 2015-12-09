@@ -227,12 +227,14 @@
                  dataType: "json",
                  data: JSON.stringify(_objectSend),
                  success: function (data, status, jqXHR) {
-                    console.log(data);
-                     if (data.EstadoBool == true) {
+                    //console.log(data);
+                     /*if (data.EstadoBool == true) {
                          alert("Se te ha enviado un mail de confirmación")
                      } else {
                          alert("Ha ocurrido un error");
-                     }
+                     }*/
+					 // Los mensajes de error en este caso vienen los dos de backend.
+					 alert(data.Descripcion);
                  },
                  error: function (jqXHR, status) {
                      // error handler
