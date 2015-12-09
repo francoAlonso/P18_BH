@@ -36,7 +36,7 @@ class UsuarioController
 	{
 		//include ('./Mail-1.2.0/Mail.php');
 		$usuario = UsuarioController::ObtenerPorId($idUsuario, $pdo);
-		if ($usuario->ObtenerContrasena() == $contrasenaActual)
+		if ($usuario->ObtenerContrasena() == hash('sha256', $contrasenaActual))
 		{
 			$usuario = Usuario::ActualizarContrasena($idUsuario, $contrasenaNueva, $pdo);
 			//Envio mail
@@ -58,7 +58,7 @@ class UsuarioController
 			$mail_object =& Mail::factory("smtp", $smtpinfo);
 			
 			$mail_object->send($recipients, $headers, $body);*/
-			require './PHPMailer-master/PHPMailerAutoload.php';
+			/*require './PHPMailer-master/PHPMailerAutoload.php';
 			
 			//Create a new PHPMailer instance
 			$mail = new PHPMailer;
@@ -124,7 +124,22 @@ class UsuarioController
 				return array("EstadoBool" => false, "Estado" => "Error", "Descripcion" => "No se pudo enviar mail de cambio de contraseña. La contraseña no será cambiada. Reintente más tarde.");
 			} else {
 				//echo "Message sent!";
+			}*/
+			
+			$to = $usuario->ObtenerMail();
+			$subject = 'Ecotrivia - Cambio de contraseña';
+			$message = 'Para aceptar el cambio de su contraseña, ingrese a la siguiente página web: http://ecotrivia.tk/api/confirmarCambioContrasena.php?token=' . urlencode($usuario->ObtenerCodigoVerificacion());
+			$headers = 'From: noreply@ecotrivia.tk' . "\r\n" .
+				'Reply-To: noreply@ecotrivia.tk' . "\r\n" .
+				'X-Mailer: PHP/' . phpversion();
+			$enviado = false;
+			if (@mail($to, $subject, $message, $headers)) {
+				$enviado = true;
+			} else {
+				$enviado = false;
+				return array("EstadoBool" => false, "Estado" => "Error", "Descripcion" => "No se pudo enviar mail de cambio de contraseña. La contraseña no será cambiada. Reintente más tarde.");
 			}
+			
 			return array("EstadoBool" => true, "Estado" => "Ok", "Descripcion" => "Se le envió un mail a " . $usuario->ObtenerMail() . " para que confirme su cambio de contraseña.");
 		}
 		else
