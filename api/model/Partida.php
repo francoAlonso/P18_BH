@@ -27,7 +27,6 @@ class Partida
 				SELECT *
 				FROM partida
 				WHERE ID = :ID
-				AND Habilitado = 1
 				LIMIT 0,1');
 		$statement->execute($params);
 		$statement->setFetchMode(PDO::FETCH_CLASS, 'Partida');

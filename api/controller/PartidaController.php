@@ -103,7 +103,7 @@ Class PartidaController
 		
 		$diferenciaPuntaje = $puntajeGanador->Puntaje_Partida - $puntajePerdedor->Puntaje_Partida;
 		$puntajeGanadorFinal = $puntajeGanador->Puntaje_Partida + $diferenciaPuntaje;
-		$puntajePerdedorFinal = $puntajePerdedor->PuntajePartida - $diferenciaPuntaje;
+		$puntajePerdedorFinal = $puntajePerdedor->Puntaje_Partida - $diferenciaPuntaje;
 		$usuarioGanador = UsuarioController::ActualizarPuntaje($puntajeGanador->ID_Usuario, $puntajeGanadorFinal, $pdo);
 		$usuarioPerdedor = UsuarioController::ActualizarPuntaje($puntajePerdedor->ID_Usuario, $puntajePerdedorFinal, $pdo);		
 		
