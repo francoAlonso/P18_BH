@@ -4,26 +4,405 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Eco Trivia - Iniciar Sesión</title>
 <link href="css/ecoTrivia.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/json3/3.3.2/json3.min.js"></script>
+<script src="js/jquery.session.js"></script>
 </head>
 
 <body>
+<!--FIJO-->
 <div class="logo_bh"></div>
 <div class="logo_puerta18"></div>
-<div class="fondo_ciudad_valle"></div>
-<div class="carton_registro">
-	<a class="boton_juga_ahora2" href="ecoTrivia_inicio.html"></a>
-	<div class="form_container">
-    	<div class="content">
-            <span>USUARIO</span>
-            <input class="first_input" type="text" name="usuario">
+<!--LOGIN-->
+<div style="display:none;" id="login">
+    <div class="fondo_ciudad_valle"></div>
+    <div class="carton_registro">
+    	<a id="btnLogin" class="boton_juga_ahora2"></a>
+        <div class="form_container_2">
+            <label>USUARIO</label>
+            <div style="display: inline"><input type="text" id="txtUsuario"></div>
+            <br>
+            <br>
+            <label>CONTRASEÑA</label>
+            <div  style="display: inline"><input type="password" id="txtPassword"></div>
         </div>
-        <div class="content">
-            <span>CONTRASEÑA</span>
-            <input class="last_input" type="text" name="contrasena">
-        </div>
-	</div>
+    </div>
 </div>
+<!--CHANGE PASS-->
+<div style="display:none;" id="change_pass">
+    <div class="fondo_ciudad_valle"></div>
+    <div class="carton_registro">
+        <a id="changePassBtn" class="boton_juga_ahora2 change_pass_button_2"></a>
+        <a class="link_button volver" data-hide="#change_pass" data-show="#afterLogin"></a>
+        <div class="form_container_2">
+            <label>CONTRASEÑA ACTUAL</label>
+            <div style="display: inline"><input type="password" id="old_pass"></div>
+            <br>
+            <br>
+            <label>NUEVA CONTRASEÑA</label>
+            <div  style="display: inline"><input type="password" id="new_pass"></div>
+        </div>
+    </div>
+</div>
+<!--INICIO (DESP DEL LOGIN) -->
+<div style="display: none;" id="afterLogin">
+    <div class="textura_top"></div>
+    <div class="textura_top textura_top_right"></div>
+    <div class="ciudad_inicio"></div>
+    <div class="logo_eco_trivia_inicio"></div>
+    <div class="nav_buttons">
+        <a class="link_button" id="btnIniciarPartida" data-hide="#afterLogin" data-show="#partida"> <span class="boton_jugar"></span> </a>
+        <a class="link_button" data-hide="#afterLogin" data-show="#perfil"><div class="boton_perfil"></div></a>
+        <a class="link_button" data-hide="#afterLogin" data-show="#ranking"><div class="boton_ranking"></div></a>
+    </div>
+    <a class="link_button change_pass_button" data-hide="#afterLogin" data-show="#change_pass"></a>
+    <div class="arboles_left"></div>
+    <div class="arboles_right"></div>
+</div>
+<!--PERFIL-->
+<div style="display: none;" id="perfil">
+    <div class="textura_top"></div>
+    <div class="textura_top textura_top_right"></div>
+    <!--<div class="arbol_miPerfil"></div>-->
+    <!-- <div class="mi_perfil"></div> -->
+    <img src="imagenes/arbol_miPerfil_3.png" id="arbol_bg">
+    <div data-hide="#perfil" data-show="#afterLogin" class="link_button boton_volver2"></div>
+    <div class="text_containter_miPerfil">
+        <span data-info="usuario" class="texto_miPerfil">USUARIO</span>
+        <span data-info="mayor_puntaje" class="texto_miPerfil right">PUNTAJE</span>
+        <span data-info="gerencia" class="texto_miPerfil">GERENCIA</span>
+        <span data-info="estado_gerencia" class="texto_miPerfil right">PUNTAJE GERENCIA</span>
+    </div>
+</div>
+<!--RANKING-->
+<div style="display: none;" id="ranking">
+    <div class="textura_top"></div>
+    <div class="textura_top textura_top_right"></div>
+    <div class="ranking"></div>
+    <div class="carton_ranking">
+        <div class="textos"></div>
+    </div>
+    <a data-hide="#ranking" data-show="#afterLogin" class="link_button"><div class="boton_volver"></div></a>
+    <div class="text_container_ranking"></div>
+</div>
+<!--PARTIDA-->
+<div style="display:none;" id="partida">
+    <div class="ciudad_inicio"></div>
+    <div class="arboles_left"></div>
+    <div class="arboles_right"></div>
+    <img src="imagenes/carton_juego2.png" class="carton_juego2" />
+    <div class="carton_juego">
+        <!--<div class="corazon" style="left:25%"></div>
+        <div class="corazon" style="left:30%";></div>
+        <div class="corazon" style="left:35%";></div>-->
+        <div class="reloj1"></div>
+        <div class="answer_container">
 
+            <center><div id="lblPregunta" class="pregunta">Cargando Pregunta...</div></center>
+            <center>
+                <div id="lblRespuesta1" class="paper_answer">Cargando Opcion...</div><br>
+                <div id="lblRespuesta2" class="paper_answer" >Cargando Opcion...</div><br>
+                <div id="lblRespuesta3" class="paper_answer">Cargando Opcion...<div>
+            </center>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+        var usuario = null;
+        var arrayPreguntas = null;
+        var partida = null;
+        //var urlWs = "http://localhost/api/index.php/";
+        //var urlWs = "http://p18bh.ultimatefreehost.in/api/index.php/";
+		var urlWs = "http://" + window.location.hostname + "/api/index.php/";
+        var nroPreguntaActual = -1;
+        var objPregunta = null;
+        var arrayRespuestas = null;
+        var objRespuesta1 = null;
+        var objRespuesta2 = null;
+        var objRespuesta3 = null;
+        var timerText = 30;
+        var timer = 31000;
+
+        function resizeText(textContainerIdOrClass) {
+            var w = $(window).width();
+            //var newFontSize = w / 78;
+            var newFontSize = ((w * 1) / 100) + 2;
+            $(textContainerIdOrClass + " span, "+ textContainerIdOrClass + " a, " + textContainerIdOrClass + " p").each(function() {
+                $(this).css("font-size", newFontSize+"px");
+            });
+        }
+        function resizeTextQuestion() {
+            var w = $(window).width();
+            var newFontSize = ((w * 1) / 100) + 7;
+            $(".pregunta").css("font-size", newFontSize+"px");
+        }
+
+        var theWindow        = $(window),
+        $bg              = $("#arbol_bg"),
+        aspectRatio      = $bg.width() / $bg.height();
+                                    
+        function resizeBg() {
+            
+            if ( (theWindow.width() / theWindow.height()) < aspectRatio ) {
+                $bg
+                    .removeClass()
+                    .addClass('bgheight');
+            } else {
+                $bg
+                    .removeClass()
+                    .addClass('bgwidth');
+            }
+                        
+        }
+                                    
+        theWindow.resize(resizeBg).trigger("resize");
+        $(window).resize(function(){
+            resizeText(".textos");
+            resizeTextQuestion();
+        });
+        $().ready(function() {
+            $("#divLogin").show();
+            $("#divIniciarPartida").hide();
+            $("#divPartida").hide();
+            resizeTextQuestion();
+            if($.session.get("ecoTriviaUserId")) {
+//                console.log("sesion iniciada")
+                $("#afterLogin").show();
+                usuario = new Object();
+                usuario.ID = $.session.get("ecoTriviaUserId");
+                console.log(usuario)
+            } else {
+//                console.log("login")
+                $("#login").show();
+            }
+            $(".link_button").click(function(){
+                var divShow = $(this).attr("data-show");
+                var divHide = $(this).attr("data-hide");
+                $(divHide).hide();
+                $(divShow).show();
+            });
+        });
+        $("#btnLogin").click(function() {
+            var _usuario = $("#txtUsuario").val();
+            var _contrasena = $("#txtPassword").val();
+            var _objectSend = new Object();
+            _objectSend.Nombre = _usuario;
+            _objectSend.Contrasena = _contrasena;
+            $.ajax({
+                 type: "POST",
+                 url: urlWs + "usuario/login",
+                 contentType: "application/json; charset=utf-8",
+                 dataType: "json",
+                 data: JSON.stringify(_objectSend),
+                 success: function (data, status, jqXHR) {
+                     if (data.Validado == true) {
+                         //alert("Sesión iniciada");
+                         $.session.set("ecoTriviaUserId", data.Usuario.ID);
+                         $.session.set("ecoTriviaUserObject", data.Usuario);
+                         $("#login").hide();
+                         $("#afterLogin").show();
+                         //$("#divLogin").hide();
+                         //$("#divIniciarPartida").show();
+                         usuario = data.Usuario;
+                     } else {
+                         alert("Sesión no iniciada");
+                     }
+                 },
+                 error: function (jqXHR, status) {
+                     // error handler
+                     console.log(jqXHR);
+                 }
+            });
+        });
+        $("#changePassBtn").click(function() {
+            var _old_pass = $("#old_pass").val();
+            var _new_pass = $("#new_pass").val();
+            var user_id  = usuario.ID;
+            var _objectSend = new Object();
+            _objectSend.ID_Usuario = user_id;
+            _objectSend.ContrasenaActual = _old_pass;
+            _objectSend.ContrasenaNueva = _new_pass;
+            $.ajax({
+                 type: "POST",
+                 url: urlWs + "usuario/cambiarContrasena",
+                 contentType: "application/json; charset=utf-8",
+                 dataType: "json",
+                 data: JSON.stringify(_objectSend),
+                 success: function (data, status, jqXHR) {
+                    console.log(data);
+                     if (data.EstadoBool == true) {
+                         alert("Se te ha enviado un mail de confirmación")
+                     } else {
+                         alert("Ha ocurrido un error");
+                     }
+                 },
+                 error: function (jqXHR, status) {
+                     // error handler
+                     console.log(jqXHR);
+                 }
+            });
+        });
+        $(".link_button[data-show='#perfil']").click(function(){
+            $.ajax({
+                type: "GET",
+                url: urlWs + "perfil/" + usuario.ID,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data, status, jqXHR) {
+                    console.log(data);
+                    nombre_usuario = data.Nombre_Usuario;
+                    puntaje_usuario = data.Puntaje_Usuario;
+                    nombre_gerencia = data.Nombre_Gerencia;
+                    puntaje_gerencia = data.Puntaje_Gerencia;
+                    puntaje_usuario = puntaje_usuario.split(".");
+                    puntaje_gerencia = puntaje_gerencia.split(".")
+                    $(".text_containter_miPerfil span[data-info='usuario']").text("NOMBRE: " + nombre_usuario)
+                    $(".text_containter_miPerfil span[data-info='mayor_puntaje']").text("PUNTAJE: " + puntaje_usuario[0])
+                    $(".text_containter_miPerfil span[data-info='gerencia']").text("GERENCIA: " + nombre_gerencia)
+                    $(".text_containter_miPerfil span[data-info='estado_gerencia']").text("PUNTAJE GERENCIA: " + puntaje_gerencia[0])
+                },
+                error: function (jqXHR, status) {
+                    console.log(jqXHR);
+                }
+            });
+        });
+        $(".link_button[data-show='#ranking']").click(function(){
+            $.ajax({
+                type: "GET",
+                url: urlWs + "gerencias/puntajes",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data, status, jqXHR) {
+                    console.log(data);
+                    allGerencias = data.Gerencias;
+                    $(".textos").html("");
+                    $.each(allGerencias, function(i, value){
+                        if(i < 10) {
+                            var num = i + 1;
+                            $(".textos").append('<span class="texto_ranking">'+num+'. '+allGerencias[i].Nombre+' ('+Math.round(allGerencias[i].Puntaje)+')</span>');
+                            resizeText(".textos");
+                        }
+                    })
+
+                },
+                error: function (jqXHR, status) {
+                    console.log(jqXHR);
+                }
+            });
+        });
+        $("#btnIniciarPartida").click(function() {
+            $.ajax({
+                type: "GET",
+                url: urlWs + "partida/generar/" + usuario.ID,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data, status, jqXHR) {
+                    console.log(data);
+                    partida = data.Partida;
+                    arrayPreguntas = data.Preguntas;
+                    nroPreguntaActual = -1;
+                    //$("#divIniciarPartida").hide();
+                    //$("#divLogin").hide();
+                    //$("#divPartida").show();
+                    MostrarSiguientePregunta();
+                },
+                error: function (jqXHR, status) {
+                    console.log(jqXHR);
+                }
+            });
+        });
+        $("#lblRespuesta1").click(function() {
+            ResponderPregunta(objRespuesta1.ID, "#lblRespuesta1");
+        });
+        $("#lblRespuesta2").click(function() {
+            ResponderPregunta(objRespuesta2.ID, "#lblRespuesta2");
+        });
+        $("#lblRespuesta3").click(function() {
+            ResponderPregunta(objRespuesta3.ID, "#lblRespuesta3");
+        });
+        var counterLoop;
+        function counter($el, n) {
+            (function loop() {
+               $el.html(n);
+               if (n--) {
+                   counterLoop = setTimeout(loop, 1000);
+               }
+            })();
+        }
+        var MostrarSiguientePregunta = function() {
+            counter($('.reloj1'), timerText);
+            countDownRedirect = setTimeout(function(){
+                alert("Se termino el tiempo");
+                location.reload();
+            },timer);
+            nroPreguntaActual += 1;
+            objPregunta = arrayPreguntas[nroPreguntaActual].Pregunta;
+            arrayRespuestas = arrayPreguntas[nroPreguntaActual].Respuestas;
+            objRespuesta1 = arrayRespuestas[0];
+            objRespuesta2 = arrayRespuestas[1];
+            objRespuesta3 = arrayRespuestas[2];
+            $("#lblPregunta").text(objPregunta.Texto);
+            $("#lblRespuesta1").text(objRespuesta1.Texto);
+            $("#lblRespuesta2").text(objRespuesta2.Texto);
+            $("#lblRespuesta3").text(objRespuesta3.Texto);
+        };
+        
+        var ResponderPregunta = function(idRespuesta, idObjeto) {
+            clearTimeout(countDownRedirect)
+            clearTimeout(counterLoop)
+            $(".paper_answer").addClass("wrong");
+            var _objSend = new Object();
+            _objSend.ID_Usuario = usuario.ID;
+            _objSend.ID_Partida = partida.ID;
+            _objSend.ID_Pregunta = objPregunta.ID_Pregunta;
+            _objSend.ID_Respuesta = idRespuesta;
+            $.ajax({
+                 type: "POST",
+                 url: urlWs + "partida/responder",
+                 contentType: "application/json; charset=utf-8",
+                 dataType: "json",
+                 data: JSON.stringify(_objSend),
+                 success: function (data, status, jqXHR) {
+                     var _resultado = data.Resultado;
+                     var _correcta = _resultado.Correcta;
+                     var _respuestaCorrecta = _resultado.Respuesta_Correcta;
+                     var _finalizada = _resultado.Partida_Finalizada;
+                     //alert("Correcta: " + _correcta + " - Finalizada: " + _finalizada);
+                     if (_correcta == true) {
+                        $(idObjeto).addClass("right");
+                        setTimeout(function(){
+                            $(".paper_answer").removeClass("wrong").removeClass("right");
+                            MostrarSiguientePregunta();
+                        }, 2000)
+                     }
+                     if (_finalizada == true) {
+                        $(".paper_answer:contains('"+_respuestaCorrecta.Texto+"')").addClass("right");
+                         setTimeout(function(){
+                            alert("Partida Terminada");
+                            $("#partida").hide();
+                            $("#afterLogin").show();
+                            $(".pregunta").text("Cargando...");
+                            $(".paper_answer").removeClass("wrong").removeClass("right").text("Respuesta");
+                         }, 1000);
+                         //$("#divPartida").hide();
+                         //$("#divIniciarPartida").show();
+                         var arrayPreguntas = null;
+                         var partida = null;
+                         var nroPreguntaActual = -1;
+                         var objPregunta = null;
+                         var arrayRespuestas = null;
+                         var objRespuesta1 = null;
+                         var objRespuesta2 = null;
+                         var objRespuesta3 = null;
+                     }
+                 },
+                 error: function (jqXHR, status) {
+                     // error handler
+                     console.log(jqXHR);
+                 }
+            });
+        };
+    </script>
 
 
 

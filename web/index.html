@@ -13,8 +13,8 @@
 <body>
 <script type="text/javascript">
 $(function() {
-	$("#contador").click(function () {
-		$("#text").hide();
+	$(window).load(function(){
+		$(".overlay").fadeOut("fast");
 	});
 });
 </script>
@@ -22,18 +22,39 @@ $(function() {
 <div class="logo_eco_trivia"></div>
 <div class="logo_bh"></div>
 <div class="logo_puerta18"></div>
-
-<a class="carton_juega_ahora" href="ecoTrivia_ingresar.html"></a>
 <div class="text_container" id="text">
+	<a class="carton_juega_ahora" href="ecoTrivia_ingresar.html"></a>
 	<span>Demostrá cuanto sabes de ecologia</span><br>
-	<span>Combiná ingenio y estrategia</span> <br>
-	<span>Perfiles y estadísticas de usuario</span><br />
+	<span class="center">Combiná ingenio y estrategia</span> <br>
+	<span class="center">Perfiles y estadísticas de usuario</span><br />
 	<span>Poné a prueba tus conocimientos</span>
-    <button id="contador">A</button>
 </div>
-
-
-
-
+<!--PRELOAD-->
+<div class="overlay">
+	<center>
+		<span>Cargando...<br>(Puede tardar unos segundos)</span>
+	</center>
+</div>
+<img src="imagenes/boton_iniciar_sesion.png" style="display: none;">
+<img src="imagenes/carton_registrate_iniciar2.png" style="display: none;">
+<img src="imagenes/boton_juga_ahora2.png" style="display: none;">
+<img src="imagenes/carton_registro.png" style="display: none;">
+<img src="imagenes/BH.png" style="display: none;">
+<img src="imagenes/puerta.png" style="display: none;">
+<img src="imagenes/volver.png" style="display: none;">
+<img src="imagenes/change_pass_button.png" style="display: none;">
+<img src="imagenes/boton_jugar.png" style="display: none;">
+<img src="imagenes/boton_perfil.png" style="display: none;">
+<img src="imagenes/boton_ranking.png" style="display: none;">
+<img src="imagenes/arboles_right.png" style="display: none;">
+<img src="imagenes/arboles.png" style="display: none;">
+<img src="imagenes/ciudad.png" style="display: none;">
+<img src="imagenes/arbol_miPerfil_3.png" style="display: none;">
+<img src="imagenes/cartones_ranking.png" style="display: none;">
+<img src="imagenes/boton_volver.png" style="display: none;">
+<img src="imagenes/carton_juego2.png" style="display: none;">
+<img src="imagenes/papel_textura.jpg" style="display: none;">
+<img src="imagenes/paper_wrong.jpg" style="display: none;">
+<img src="imagenes/paper_right.jpg" style="display: none;">
 </body>
 </html>
