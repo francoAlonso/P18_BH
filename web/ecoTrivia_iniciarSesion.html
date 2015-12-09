@@ -111,8 +111,6 @@
         var usuario = null;
         var arrayPreguntas = null;
         var partida = null;
-        //var urlWs = "http://localhost/api/index.php/";
-        //var urlWs = "http://p18bh.ultimatefreehost.in/api/index.php/";
 		var urlWs = "http://" + window.location.hostname + "/api/index.php/";
         var nroPreguntaActual = -1;
         var objPregunta = null;
@@ -120,8 +118,8 @@
         var objRespuesta1 = null;
         var objRespuesta2 = null;
         var objRespuesta3 = null;
-        var timerText = 30;
-        var timer = 31000;
+        var timerText = 15; //30
+        var timer = 16000; // 31000
 
         function resizeText(textContainerIdOrClass) {
             var w = $(window).width();
@@ -205,7 +203,7 @@
                          //$("#divIniciarPartida").show();
                          usuario = data.Usuario;
                      } else {
-                         alert("Sesión no iniciada");
+                         alert("Sesión no iniciada. Usuario o contraseña incorrectos.");
                      }
                  },
                  error: function (jqXHR, status) {
